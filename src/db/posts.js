@@ -1,13 +1,6 @@
 import mongoose from 'mongoose';
 
 const postSchema = new mongoose.Schema({
-  post_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    index: true,
-    unique: true,
-    default: mongoose.Types.ObjectId, // Generate a default ObjectId for post_id
-  },
   post_owner_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User', // Reference to the User model
