@@ -11,5 +11,8 @@ export default (router) => {
   router.post('/auth/register', isValidRegistrationRequestBody, register);
   router.post('/auth/login', login);
   router.get('/auth/isAuthenticated', isAuthenticated, success);
+<<<<<<< HEAD
   router.get('/auth/logout', isAuthenticated, logout);
+=======
+>>>>>>> main
 };

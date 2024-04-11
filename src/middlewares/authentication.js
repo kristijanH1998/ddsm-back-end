@@ -1,5 +1,6 @@
 import express from 'express';
 import pkg from 'lodash';
+import { getUserBySessionToken } from '../db/users.js';
 const { get, merge } = pkg;
 
 export const isValidRegistrationRequestBody = (req, res, next) => {
@@ -56,4 +57,26 @@ export const isValidRegistrationRequestBody = (req, res, next) => {
   merge(req, { registrationRequestBodyValid });
 
   next();
+};
+
+export const isAuthenticated = (req, res, next) => {
+  const session_token = req.cookies.session_token;
+
+  if (!session_token) {
+    return res.sendStatus(403);
+  }
+
+  const user = getUserBySessionToken(session_token);
+
+  if (!user) {
+    return res.sendStatus(403);
+  }
+
+  merge(req, { identity: user });
+
+  next();
+};
+
+export const success = (req, res) => {
+  return res.sendStatus(200);
 };
