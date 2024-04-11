@@ -103,5 +103,13 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   const user = get(req, 'identity');
-  console.log(user);
+
+  user.authentication.session_token = authentication(
+    generateRandomString(),
+    user._id.toString()
+  );
+
+  await user.save();
+
+  return res.sendStatus(200);
 };
