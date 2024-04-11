@@ -57,3 +57,6 @@ export const isValidRegistrationRequestBody = (req, res, next) => {
 
   next();
 };
+export const success = (req, res) => {
+  return res.sendStatus(200);
+};
