@@ -3,6 +3,7 @@ import express from 'express';
 import { createUser } from '../db/users.js';
 import { generateRandomString, authentication } from '../helpers/index.js';
 import { getUserByEmail } from '../db/users.js';
+import { updateUserSessionToken } from '../db/users.js';
 
 import pkg from 'lodash';
 const { get, merge } = pkg;
@@ -96,6 +97,19 @@ export const login = async (req, res) => {
     httpOnly: true,
     sameSite: 'none',
   });
+
+  return res.sendStatus(200);
+};
+
+export const logout = async (req, res) => {
+  const user = get(req, 'identity');
+
+  user.authentication.session_token = authentication(
+    generateRandomString(),
+    user._id.toString()
+  );
+
+  await user.save();
 
   return res.sendStatus(200);
 };

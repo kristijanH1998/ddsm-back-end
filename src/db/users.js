@@ -42,3 +42,9 @@ export const updateUserSessionToken = async (id, session_token) => {
     'authentication.session_token': session_token,
   });
 };
+
+export const getUserBySessionToken = async (session_token) => {
+  return UserModel.findOne({
+    'authentication.session_token': session_token,
+  }).select('authentication.salt');
+};
