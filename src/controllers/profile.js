@@ -1,4 +1,4 @@
-import { updateUserProfile } from '../db/users';
+import { updateUserProfile } from '../db/users.js';
 import pkg from 'lodash';
 const { get, merge } = pkg;
 
@@ -12,8 +12,10 @@ export const updateProfile = async (req, res) => {
     biography,
   } = req.body;
 
+  const user = get(req, 'identity');
+
   try {
-    const update = updateUserProfile({
+    const update = updateUserProfile(user._id, {
       username,
       user_info: {
         country,

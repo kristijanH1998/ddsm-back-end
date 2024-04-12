@@ -49,6 +49,6 @@ export const getUserBySessionToken = async (session_token) => {
   }).select('authentication.salt');
 };
 
-export const updateUserProfile = async (values) => {
-  return UserModel(values).save();
+export const updateUserProfile = async (id, values) => {
+  return UserModel.findByIdAndUpdate(id, values);
 };

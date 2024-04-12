@@ -1,5 +1,5 @@
 import express from 'express';
-import { isAuthenticated } from '../middlewares/authentication';
+import { isAuthenticated } from '../middlewares/authentication.js';
 import { updateProfile } from '../controllers/profile.js';
 
 export default (router) => {
