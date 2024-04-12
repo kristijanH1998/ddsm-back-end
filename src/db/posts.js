@@ -28,4 +28,8 @@ const postSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Post', postSchema);
+export const PostsModel = mongoose.model('Post', postSchema);
+
+export const createNewPost = async (values) => {
+  return PostsModel(values).save();
+};

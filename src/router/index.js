@@ -1,5 +1,5 @@
 import express from 'express';
-
+import posts from './posts.js';
 import authentication from './authentication.js';
 
 const router = express.Router();
@@ -10,6 +10,7 @@ const router = express.Router();
  * @returns the router
  */
 export default () => {
+  posts(router);
   authentication(router);
   return router;
 };
