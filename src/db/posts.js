@@ -33,3 +33,31 @@ export const PostsModel = mongoose.model('Post', postSchema);
 export const createNewPost = async (values) => {
   return PostsModel(values).save();
 };
+
+// Schema for creating comment
+const commentSchema = new mongoose.Schema({
+  post_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Post',
+    required: true,
+  },
+  comment_owner_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  comment_content: {
+    type: String,
+    required: true,
+  },
+  comment_timestamp: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+export const CommentModel = mongoose.model('Comment', commentSchema);
+
+export const createNewComment = async (values) => {
+  return CommentModel(values).save();
+};
