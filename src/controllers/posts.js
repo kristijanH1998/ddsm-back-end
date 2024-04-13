@@ -1,4 +1,4 @@
-import { createNewPost } from '../db/posts.js';
+import { createNewPost, archivePost as _archivePost } from '../db/posts.js';
 import pkg from 'lodash';
 const { get, merge } = pkg;
 
@@ -19,5 +19,17 @@ export const createPost = async (req, res) => {
     res.status(400).json({
       error: 'Invalid request...',
     });
+  }
+};
+
+export const archivePost = async (req, res) => {
+  try {
+    const post = get(req, 'post_identity');
+    await _archivePost(post);
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
   }
 };
