@@ -14,17 +14,19 @@ export const updateProfile = async (req, res) => {
 
   const user = get(req, 'identity');
 
+  if (!user) return res.sendStatus(500);
+
   try {
-    const update = updateUserProfile(user._id, {
+    const update = {
       username,
-      user_info: {
-        country,
-        first_name,
-        last_name,
-        profile_picture,
-        biography,
-      },
-    });
+      country,
+      first_name,
+      last_name,
+      profile_picture,
+      biography,
+    };
+
+    await updateUserProfile(user._id, update);
 
     return res.sendStatus(200);
   } catch (error) {
