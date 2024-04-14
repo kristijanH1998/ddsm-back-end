@@ -1,4 +1,4 @@
-import { doesPostExist, createNewPost, createNewComment } from '../db/posts.js';
+import { PostsModel, createNewPost, createNewComment } from '../db/posts.js';
 import pkg from 'lodash';
 const { get, merge } = pkg;
 
@@ -40,8 +40,8 @@ export const createComment = async (req, res) => {
       return res.status(404).json({ error: 'Post not found' });
     }
     // Check if the post exists
-    const postExists = await doesPostExist(post_id);
-    if (!postExists) {
+    const post = await PostsModel.findById(post_id);
+    if (!post) {
       return res.status(404).json({ error: 'Post not found' });
     }
     // Create new comment if post id is valid
