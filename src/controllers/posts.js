@@ -1,5 +1,5 @@
 import {
-  PostsModel,
+  doesPostExist,
   createNewPost,
   createNewComment,
   archivePost as _archivePost,
@@ -57,8 +57,8 @@ export const createComment = async (req, res) => {
       return res.status(404).json({ error: 'Post not found' });
     }
     // Check if the post exists
-    const post = await PostsModel.findById(post_id);
-    if (!post) {
+    const postExists = await doesPostExist(post_id);
+    if (!postExists) {
       return res.status(404).json({ error: 'Post not found' });
     }
     // Create new comment if post id is valid
