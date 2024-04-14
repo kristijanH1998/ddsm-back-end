@@ -63,13 +63,13 @@ export const isAuthenticated = async (req, res, next) => {
   const session_token = req.cookies.session_token;
 
   if (!session_token) {
-    return res.sendStatus(403);
+    return res.status(403).json({ error: 'No session token' });
   }
 
   const user = await getUserBySessionToken(session_token);
 
   if (!user) {
-    return res.sendStatus(403);
+    return res.status(403).json({ error: 'Invalid session token' });
   }
 
   merge(req, { identity: user });
