@@ -30,6 +30,11 @@ export const createComment = async (req, res) => {
   const user = get(req, 'identity');
 
   try {
+    //Check if the comment_content is provided
+    if (!comment_content) {
+      return res.status(400).json({ error: 'Comment content is required' });
+    }
+
     // Check if the post ID is empty or equals ':id'
     if (!post_id || post_id === ':id') {
       return res.status(404).json({ error: 'Post not found' });
