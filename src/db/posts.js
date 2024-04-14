@@ -69,8 +69,3 @@ export const CommentModel = mongoose.model('Comment', commentSchema);
 export const createNewComment = async (values) => {
   return CommentModel(values).save();
 };
-
-export const doesPostExist = async (post_id) => {
-  const post = await PostsModel.findById(post_id);
-  return !!post;
-};
