@@ -1,6 +1,6 @@
 import { isAuthenticated } from '../middlewares/authentication.js';
 
-import { createPost, createComment } from '../controllers/posts.js';
+import { createPost, createComment, archivePost } from '../controllers/posts.js';
 import { postExists, isPostOwner } from '../middlewares/posts.js';
 
 export default (router) => {
