@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
     datetime_created: { type: Date, default: Date.now },
     biography: { type: String },
   },
+  profile_is_archived: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export const UserModel = mongoose.model('User', userSchema);
@@ -91,4 +95,9 @@ export const updateUserProfile = async (id, updates) => {
   }
 
   return await user.save();
+};
+
+export const archiveProfile = async (user) => {
+  user.profile_is_archived = true;
+  return user.save();
 };
