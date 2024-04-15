@@ -3,6 +3,7 @@ import {
   createNewPost,
   createNewComment,
   delComment,
+  delPost,
   archivePost as _archivePost,
   getPostById,
 } from '../db/posts.js';
@@ -84,5 +85,17 @@ export const deleteComment = async (req, res) => {
     res.status(400).json({
       error: 'Invalid request...',
     });
+  }
+};
+
+// delete post
+export const deletePost = async (req, res) => {
+  try {
+    const { id: post_id } = req.params;
+    await delPost(post_id);
+    return res.status(200).json({ message: 'Post deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
   }
 };
