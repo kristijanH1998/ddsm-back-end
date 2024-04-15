@@ -73,3 +73,7 @@ export const createNewComment = async (values) => {
 export const delComment = async (id) => {
   return CommentModel.findOneAndDelete(id);
 };
+
+export const delPost = async (id) => {
+  return PostsModel.findByIdAndDelete(id);
+};
