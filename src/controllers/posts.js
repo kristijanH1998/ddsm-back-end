@@ -1,8 +1,8 @@
 import {
-  PostsModel,
   createNewPost,
   createNewComment,
   archivePost as _archivePost,
+  getPostById,
 } from '../db/posts.js';
 import pkg from 'lodash';
 const { get, merge } = pkg;
@@ -43,7 +43,7 @@ export const archivePost = async (req, res) => {
 // Comment creation
 export const createComment = async (req, res) => {
   const { comment_content } = req.body;
-  const { id: post_id } = req.params;
+  const { id: post_id } = get(req, 'post_identity');
   const user = get(req, 'identity');
 
   try {
@@ -52,15 +52,6 @@ export const createComment = async (req, res) => {
       return res.status(400).json({ error: 'Comment content is required' });
     }
 
-    // Check if the post ID is empty or equals ':id'
-    if (!post_id || post_id === ':id') {
-      return res.status(404).json({ error: 'Post not found' });
-    }
-    // Check if the post exists
-    const post = await PostsModel.findById(post_id);
-    if (!post) {
-      return res.status(404).json({ error: 'Post not found' });
-    }
     // Create new comment if post id is valid
     const newComment = await createNewComment({
       post_id,
