@@ -42,6 +42,11 @@ export const archivePost = async (post) => {
   post.post_is_archived = true;
   return post.save();
 };
+
+export const postUpdate = async (id, values) => {
+  return PostsModel.findByIdAndUpdate(id, values);
+};
+
 // Schema for creating comment
 const commentSchema = new mongoose.Schema({
   post_id: {

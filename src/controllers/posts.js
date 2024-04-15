@@ -5,6 +5,7 @@ import {
   delComment,
   delPost,
   archivePost as _archivePost,
+  postUpdate,
   getPostById,
 } from '../db/posts.js';
 import pkg from 'lodash';
@@ -97,5 +98,25 @@ export const deletePost = async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+// update posts
+// update post
+export const updatePost = async (req, res) => {
+  const { post_content } = req.body;
+
+  try {
+    // TODO: fix this
+    const update = postUpdate({
+      post_content,
+    });
+
+    return res.sendStatus(200);
+  } catch (error) {
+    console.error('Error updating post: ', error);
+    return res.sendStatus(400).json({
+      error: 'Invalid request...',
+    });
   }
 };
