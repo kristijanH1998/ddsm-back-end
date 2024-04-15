@@ -27,6 +27,16 @@ export const createUser = async (values) => {
     .then((user) => user.toObject());
 };
 
+export const getUserById = async (id, includeCredentials) => {
+  if (includeCredentials) {
+    return UserModel.findById(id).select(
+      'authentication.password authentication.salt'
+    );
+  }
+
+  return UserModel.findById(id);
+};
+
 export const getUserByEmail = async (email, includeCredentials) => {
   if (includeCredentials) {
     return UserModel.findOne({ email }).select(
@@ -47,4 +57,38 @@ export const getUserBySessionToken = async (session_token) => {
   return UserModel.findOne({
     'authentication.session_token': session_token,
   }).select('authentication.salt');
+};
+
+export const updateUserProfile = async (id, updates) => {
+  const user = await getUserById(id, false);
+
+  if (!user) throw new Error('User not found');
+
+  if (updates.username) {
+    user.username = updates.username;
+  }
+  if (updates.email) {
+    user.email = updates.email;
+  }
+
+  if (updates.country) {
+    user.user_info.country = updates.country;
+  }
+  if (updates.first_name) {
+    user.user_info.first_name = updates.first_name;
+  }
+  if (updates.last_name) {
+    user.user_info.last_name = updates.last_name;
+  }
+  if (updates.date_of_birth) {
+    user.user_info.date_of_birth = updates.date_of_birth;
+  }
+  if (updates.profile_picture) {
+    user.user_info.profile_picture = updates.profile_picture;
+  }
+  if (updates.biography) {
+    user.user_info.biography = updates.biography;
+  }
+
+  return await user.save();
 };
