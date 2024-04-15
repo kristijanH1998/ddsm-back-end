@@ -42,6 +42,11 @@ export const archivePost = async (post) => {
   post.post_is_archived = true;
   return post.save();
 };
+
+export const getOnePostForTesting = async (user_id) => {
+  return PostsModel.findOne({ post_owner_id: user_id });
+};
+
 // Schema for creating comment
 const commentSchema = new mongoose.Schema({
   post_id: {

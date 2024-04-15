@@ -3,6 +3,7 @@ import {
   createNewPost,
   createNewComment,
   archivePost as _archivePost,
+  getOnePostForTesting as _getOnePostForTesting,
 } from '../db/posts.js';
 import pkg from 'lodash';
 const { get, merge } = pkg;
@@ -39,7 +40,6 @@ export const archivePost = async (req, res) => {
     res.sendStatus(500);
   }
 };
-
 // Comment creation
 export const createComment = async (req, res) => {
   const { comment_content } = req.body;
@@ -75,4 +75,10 @@ export const createComment = async (req, res) => {
       error: 'Invalid request...',
     });
   }
+};
+
+export const getOnePostForTesting = async (req, res) => {
+  const user = get(req, 'identity');
+  const post = await _getOnePostForTesting(user._id);
+  return res.status(200).json({ post });
 };
