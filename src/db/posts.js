@@ -69,3 +69,7 @@ export const CommentModel = mongoose.model('Comment', commentSchema);
 export const createNewComment = async (values) => {
   return CommentModel(values).save();
 };
+
+export const delComment = async (id) => {
+  return CommentModel.findOneAndDelete(id);
+};

@@ -1,6 +1,8 @@
+import { ObjectId } from 'mongodb';
 import {
   createNewPost,
   createNewComment,
+  delComment,
   archivePost as _archivePost,
   getPostById,
 } from '../db/posts.js';
@@ -62,6 +64,23 @@ export const createComment = async (req, res) => {
     res.sendStatus(201);
   } catch (error) {
     console.error('error creating comment:', error);
+    res.status(400).json({
+      error: 'Invalid request...',
+    });
+  }
+};
+
+// delete comment
+export const deleteComment = async (req, res) => {
+  try {
+    const { id: comment_id } = req.params;
+    if (ObjectId.isValid(comment_id)) {
+      delComment(comment_id);
+      return res.sendStatus(200);
+    } else {
+      return res.status(404).json({ error: 'Comment not found' });
+    }
+  } catch {
     res.status(400).json({
       error: 'Invalid request...',
     });
