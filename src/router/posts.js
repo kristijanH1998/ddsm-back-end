@@ -1,6 +1,11 @@
 import { isAuthenticated } from '../middlewares/authentication.js';
 
-import { createPost, createComment, archivePost } from '../controllers/posts.js';
+import {
+  createPost,
+  createComment,
+  archivePost,
+  deleteComment,
+} from '../controllers/posts.js';
 import { postExists, isPostOwner } from '../middlewares/posts.js';
 
 export default (router) => {
@@ -13,4 +18,5 @@ export default (router) => {
     isPostOwner,
     archivePost
   );
+  router.delete('/posts/:id/comment', isAuthenticated, deleteComment);
 };
