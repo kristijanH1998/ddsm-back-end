@@ -74,17 +74,11 @@ export const createComment = async (req, res) => {
 // delete comment
 export const deleteComment = async (req, res) => {
   try {
-    const { id: comment_id } = req.params;
-    if (ObjectId.isValid(comment_id)) {
-      delComment(comment_id);
-      return res.sendStatus(200);
-    } else {
-      return res.status(404).json({ error: 'Comment not found' });
-    }
+    const comment = get(req, 'comment_identity');
+    delComment(comment._id);
+    return res.sendStatus(200);
   } catch {
-    res.status(400).json({
-      error: 'Invalid request...',
-    });
+    res.sendStatus(500);
   }
 };
 
