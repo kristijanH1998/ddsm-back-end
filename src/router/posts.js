@@ -6,6 +6,7 @@ import {
   archivePost,
   deleteComment,
   deletePost,
+  getPost,
 } from '../controllers/posts.js';
 import { postExists, isPostOwner } from '../middlewares/posts.js';
 
@@ -27,4 +28,5 @@ export default (router) => {
     isPostOwner,
     deletePost
   );
+  router.get('/posts/:id', isAuthenticated, postExists, getPost);
 };

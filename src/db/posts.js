@@ -78,3 +78,4 @@ export const delComment = async (id) => {
 export const delPost = async (id) => {
   return PostsModel.findByIdAndDelete(id);
 };
+
