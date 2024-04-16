@@ -5,7 +5,6 @@ import {
   delComment,
   delPost,
   archivePost as _archivePost,
-  getOnePostForTesting as _getOnePostForTesting,
   getPostById,
 } from '../db/posts.js';
 import pkg from 'lodash';
@@ -17,12 +16,12 @@ export const createPost = async (req, res) => {
   const user = get(req, 'identity');
 
   try {
-    const newPost = createNewPost({
+    const newPost = await createNewPost({
       post_owner_id: user._id.toString(),
       post_content,
     });
 
-    res.sendStatus(201);
+    res.status(201).json(newPost._id);
   } catch (error) {
     console.error('error creating post:', error);
     res.status(400).json({
@@ -61,7 +60,7 @@ export const createComment = async (req, res) => {
       comment_content,
     });
 
-    res.sendStatus(201);
+    res.status(201).json(newComment._id);
   } catch (error) {
     console.error('error creating comment:', error);
     res.status(400).json({
@@ -95,10 +94,4 @@ export const deletePost = async (req, res) => {
     console.error(error);
     return res.status(500).json({ error: 'Internal server error' });
   }
-};
-
-export const getOnePostForTesting = async (req, res) => {
-  const user = get(req, 'identity');
-  const post = await _getOnePostForTesting(user._id);
-  return res.status(200).json({ post });
 };

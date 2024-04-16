@@ -4,7 +4,6 @@ import {
   createPost,
   createComment,
   archivePost,
-  getOnePostForTesting,
   deleteComment,
   deletePost,
 } from '../controllers/posts.js';
@@ -20,7 +19,6 @@ export default (router) => {
     isPostOwner,
     archivePost
   );
-  router.get('/posts/forTesting', isAuthenticated, getOnePostForTesting);
   router.delete('/posts/:id/comment', isAuthenticated, deleteComment);
   router.delete(
     '/posts/:id/delete',
