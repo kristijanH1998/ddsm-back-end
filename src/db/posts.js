@@ -77,3 +77,7 @@ export const delComment = async (id) => {
 export const delPost = async (id) => {
   return PostsModel.findByIdAndDelete(id);
 };
+
+export const getPost = async (id) => {
+  return PostsModel.findById(id);
+};
