@@ -28,5 +28,11 @@ export default (router) => {
     isPostOwner,
     deletePost
   );
-  router.put('/posts/:id', isAuthenticated, updatePost);
+  router.put(
+    '/posts/:id',
+    isAuthenticated,
+    postExists,
+    isPostOwner,
+    updatePost
+  );
 };
