@@ -7,8 +7,11 @@ const { get, merge } = pkg;
 export const postExists = async (req, res, next) => {
   try {
     const { id: post_id } = req.params;
-    const post = await getPostById(post_id);
+    if (post_id.length !== 24) {
+      return res.status(404).json({ error: 'Invalid post id' });
+    }
 
+    const post = await getPostById(post_id);
     if (!post) return res.status(404).json({ error: 'Post does not exist' });
 
     merge(req, { post_identity: post });
