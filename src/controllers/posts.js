@@ -104,20 +104,17 @@ export const deletePost = async (req, res) => {
 // update posts
 export const updatePost = async (req, res) => {
   try {
-    const { id: post_id } = req.params;
     const { post_content } = req.body;
+    const post = get(req, 'post_identity');
 
-    if (ObjectId.isValid(post_id)) {
-      postUpdate(post_id, {
-        post_content,
-      });
-      return res.status(200).json({ message: 'Post updated successfully' });
-    } else {
-      return res.status(404).json({ error: 'Post not found' });
-    }
+    postUpdate(post._id, {
+      post_content,
+    });
+
+    return res.status(200).json({ message: 'Post updated successfully' });
   } catch (error) {
     console.error('Error updating post: ', error);
-    return res.sendStatus(400).json({
+    return res.status(500).json({
       error: 'Invalid request...',
     });
   }
