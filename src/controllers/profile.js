@@ -14,8 +14,6 @@ export const updateProfile = async (req, res) => {
 
   const user = get(req, 'identity');
 
-  if (!user) return res.sendStatus(500);
-
   profile_picture = Buffer.from(profile_picture, "base64");  //converting base64 string from the request body into a Buffer object (binary)
 
   try {
@@ -33,7 +31,7 @@ export const updateProfile = async (req, res) => {
     return res.sendStatus(200);
   } catch (error) {
     console.error('Error updating profile: ', error);
-    return res.sendStatus(400).json({
+    return res.status(500).json({
       error: 'Invalid request...',
     });
   }
