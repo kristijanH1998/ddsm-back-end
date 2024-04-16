@@ -16,6 +16,8 @@ export const updateProfile = async (req, res) => {
 
   if (!user) return res.sendStatus(500);
 
+  profile_picture = Buffer.from(profile_picture, "base64");  //converting base64 string from the request body into a Buffer object (binary)
+
   try {
     const update = {
       username,
