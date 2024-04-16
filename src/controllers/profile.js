@@ -40,10 +40,13 @@ export const updateProfile = async (req, res) => {
 export const archiveProfile = async (req, res) => {
   try {
     const user = get(req, 'identity');
-    await archiveProfile(user);
+    if (!user) return res.sendStatus(500);
+    await archiveProfile(user._id);
     res.sendStatus(200);
   } catch (error) {
-    console.error(error);
-    res.sendStatus(500);
+    console.error('Error archiving profile: ',error);
+    return res.sendStatus(400).json({
+      error: 'Invalid request...',
+    });
   }
 };

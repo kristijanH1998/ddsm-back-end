@@ -97,7 +97,9 @@ export const updateUserProfile = async (id, updates) => {
   return await user.save();
 };
 
-export const archiveProfile = async (user) => {
+export const archiveProfile = async (id) => {
+  const user = await getUserById(id, false);
+  if (!user) throw new Error('User not found');
   user.profile_is_archived = true;
   return user.save();
 };
