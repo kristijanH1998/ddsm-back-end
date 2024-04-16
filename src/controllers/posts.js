@@ -6,7 +6,7 @@ import {
   delPost,
   archivePost as _archivePost,
   getPostById,
-  getPost,
+  //getPost,
 } from '../db/posts.js';
 import pkg from 'lodash';
 const { get, merge } = pkg;
@@ -101,8 +101,7 @@ export const deletePost = async (req, res) => {
   }
 };
 
-// get post
-export const retrievePost = async (req, res) => {
+export const getPost = async (req, res) => {
   try {
     const { post_identity } = req;
     return res.status(200).json(post_identity);
@@ -110,4 +109,5 @@ export const retrievePost = async (req, res) => {
     console.error(error);
     return res.status(500).json({ error: 'Internal server error' });
   }
-};
+}; 
+
