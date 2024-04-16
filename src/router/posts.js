@@ -20,5 +20,11 @@ export default (router) => {
     archivePost
   );
   router.delete('/posts/:id/comment', isAuthenticated, deleteComment);
-  router.delete('/posts/:id/delete', isAuthenticated, postExists, isPostOwner, deletePost);
+  router.delete(
+    '/posts/:id/delete',
+    isAuthenticated,
+    postExists,
+    isPostOwner,
+    deletePost
+  );
 };
