@@ -8,7 +8,7 @@ import { ObjectId } from 'mongodb';
 export const postExists = async (req, res, next) => {
   try {
     const { id: post_id } = req.params;
-    if (ObjectId.isValid(post_id)) {
+    if (!ObjectId.isValid(post_id)) {
       return res.status(404).json({ error: 'Invalid post id' });
     }
 
