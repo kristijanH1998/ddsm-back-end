@@ -6,6 +6,7 @@ import {
   archivePost,
   deleteComment,
   deletePost,
+  getPost,
 } from '../controllers/posts.js';
 import {
   postExists,
@@ -32,6 +33,7 @@ export default (router) => {
     isCommentOwner,
     deleteComment
   );
+  router.delete('/posts/:id/comment', isAuthenticated, deleteComment);
   router.delete(
     '/posts/:id/delete',
     isAuthenticated,
@@ -39,4 +41,5 @@ export default (router) => {
     isPostOwner,
     deletePost
   );
+  router.get('/posts/:id', isAuthenticated, postExists, getPost);
 };
