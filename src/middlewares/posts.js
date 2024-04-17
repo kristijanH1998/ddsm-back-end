@@ -1,6 +1,6 @@
 import pkg from 'lodash';
 
-import { getPostById } from '../db/posts.js';
+import { getPostById, getCommentById } from '../db/posts.js';
 
 const { get, merge } = pkg;
 import { ObjectId } from 'mongodb';
@@ -42,12 +42,13 @@ export const isPostOwner = (req, res, next) => {
 export const commentExists = async (req, res, next) => {
   try {
     const { commentId: comment_id } = req.params;
-    if (ObjectId.isValid(comment_id)) {
+    if (!ObjectId.isValid(comment_id)) {
       return res.status(404).json({ error: 'Invalid commment id' });
     }
 
     const comment = await getCommentById(comment_id);
-    if (!comment) return res.status(404).json({ error: 'Comment does not exist' });
+    if (!comment)
+      return res.status(404).json({ error: 'Comment does not exist' });
 
     merge(req, { comment_identity: comment });
     next();
