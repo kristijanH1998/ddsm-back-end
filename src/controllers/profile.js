@@ -1,4 +1,7 @@
-import { updateUserProfile, archiveProfile, } from '../db/users.js';
+import {
+  updateUserProfile,
+  archiveProfile as _archiveProfile,
+} from '../db/users.js';
 import pkg from 'lodash';
 const { get, merge } = pkg;
 
@@ -40,13 +43,11 @@ export const updateProfile = async (req, res) => {
 export const archiveProfile = async (req, res) => {
   try {
     const user = get(req, 'identity');
-    if (!user) return res.sendStatus(500);
-    await archiveProfile(user._id);
+    if (!user) return res.sendStatus(404);
+    await _archiveProfile(user._id);
     res.sendStatus(200);
   } catch (error) {
-    console.error('Error archiving profile: ',error);
-    return res.sendStatus(400).json({
-      error: 'Invalid request...',
-    });
+    console.error('Error archiving profile: ', error);
+    return res.sendStatus(500);
   }
 };
