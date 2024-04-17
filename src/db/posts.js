@@ -47,6 +47,10 @@ export const postUpdate = async (id, values) => {
   return PostsModel.findByIdAndUpdate(id, values);
 };
 
+export const delPost = async (id) => {
+  return PostsModel.findByIdAndDelete(id);
+};
+
 // Schema for creating comment
 const commentSchema = new mongoose.Schema({
   post_id: {
@@ -79,6 +83,6 @@ export const delComment = async (id) => {
   return CommentModel.findOneAndDelete(id);
 };
 
-export const delPost = async (id) => {
-  return PostsModel.findByIdAndDelete(id);
+export const getCommentById = async (id) => {
+  return CommentModel.findById(id);
 };

@@ -35,7 +35,7 @@ export const register = async (req, res) => {
 
     const salt = generateRandomString();
 
-    const user = createUser({
+    const user = await createUser({
       username,
       email,
       authentication: {
@@ -52,9 +52,7 @@ export const register = async (req, res) => {
     return res.sendStatus(200);
   } catch (error) {
     console.error('Error registering user: ', error);
-    return res.status(400).json({
-      error: 'Invalid request...',
-    });
+    return res.sendStatus(500);
   }
 };
 
