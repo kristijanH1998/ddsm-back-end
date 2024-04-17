@@ -12,10 +12,14 @@ const userSchema = new mongoose.Schema({
     country: { type: String },
     first_name: { type: String, required: true },
     last_name: { type: String, required: true },
-    date_of_birth: { type: Date, required: true },
-    profile_picture: { type: Buffer }, // Assuming profile_picture is stored as binary data
+    date_of_birth: { type: Date },
+    profile_picture: { type: Buffer }, // Assuming profile_picture is stored as binary data, after being converted from base64 ASCII string
     datetime_created: { type: Date, default: Date.now },
     biography: { type: String },
+  },
+  profile_is_archived: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -91,4 +95,11 @@ export const updateUserProfile = async (id, updates) => {
   }
 
   return await user.save();
+};
+
+export const archiveProfile = async (id) => {
+  const user = await getUserById(id, false);
+  if (!user) throw new Error('User not found');
+  user.profile_is_archived = true;
+  return user.save();
 };
