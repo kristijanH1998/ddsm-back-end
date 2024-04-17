@@ -8,8 +8,13 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import pkg from 'mongoose';
 const { Promise } = pkg;
+import dotenv from 'dotenv';
 
 import router from './router/index.js';
+
+const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
+dotenv.config({ path: envFile });
+console.log(`Running in ${process.env.NODE_ENV} mode`);
 
 /**
  * Rate limiter middleware to limit the number of requests per IP
@@ -22,7 +27,9 @@ const limiter = rateLimit({
 
 // Express app
 const app = express();
-app.use(limiter);
+if (process.env.RATE_LIMITING === 'TRUE') {
+  app.use(limiter);
+}
 app.use(
   cors({
     origin: 'http://localhost:5173',
