@@ -35,7 +35,7 @@ export const register = async (req, res) => {
 
     const salt = generateRandomString();
 
-    const user = createUser({
+    const user = await createUser({
       username,
       email,
       authentication: {
