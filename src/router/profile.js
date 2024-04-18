@@ -6,7 +6,6 @@ import {
   deleteProfile,
 } from '../controllers/profile.js';
 import {
-  profileExists,
   isProfileOwner,
   checkUpdateProfilePayload,
 } from '../middlewares/profile.js';
@@ -21,7 +20,6 @@ export default (router) => {
   router.put(
     '/profile/archive',
     isAuthenticated,
-    profileExists,
     isProfileOwner,
     archiveProfile
   );
