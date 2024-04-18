@@ -6,6 +6,7 @@ import {
   archivePost,
   deleteComment,
   deletePost,
+  updatePost,
   getPost,
   unarchivePost,
 } from '../controllers/posts.js';
@@ -48,6 +49,13 @@ export default (router) => {
     postExists,
     isPostOwner,
     deletePost
+  );
+  router.put(
+    '/posts/:id',
+    isAuthenticated,
+    postExists,
+    isPostOwner,
+    updatePost
   );
   router.get('/posts/:id', isAuthenticated, postExists, getPost);
 };
