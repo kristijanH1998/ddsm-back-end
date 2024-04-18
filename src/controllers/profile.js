@@ -43,7 +43,6 @@ export const updateProfile = async (req, res) => {
 export const archiveProfile = async (req, res) => {
   try {
     const user = get(req, 'identity');
-    if (!user) return res.sendStatus(404);
     await _archiveProfile(user._id);
     res.sendStatus(200);
   } catch (error) {
