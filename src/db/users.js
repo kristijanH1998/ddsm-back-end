@@ -103,3 +103,9 @@ export const archiveProfile = async (id) => {
   user.profile_is_archived = true;
   return user.save();
 };
+
+export const deleteProfile = async (id) => {
+  const user = await getUserById(id, false);
+  if (!user) throw new Error('User not found');
+  return user.remove();
+};

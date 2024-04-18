@@ -1,6 +1,10 @@
 import express from 'express';
 import { isAuthenticated } from '../middlewares/authentication.js';
-import { updateProfile, archiveProfile } from '../controllers/profile.js';
+import {
+  updateProfile,
+  archiveProfile,
+  deleteProfile,
+} from '../controllers/profile.js';
 import {
   profileExists,
   isProfileOwner,
@@ -20,5 +24,12 @@ export default (router) => {
     profileExists,
     isProfileOwner,
     archiveProfile
+  );
+  router.delete(
+    '/profile/delete',
+    isAuthenticated,
+    profileExists,
+    isProfileOwner,
+    deleteProfile
   );
 };
