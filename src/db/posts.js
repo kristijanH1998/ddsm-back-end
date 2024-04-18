@@ -43,6 +43,11 @@ export const archivePost = async (post) => {
   return post.save();
 };
 
+export const unarchivePost = async (post) => {
+  post.post_is_archived = false;
+  return post.save();
+};
+
 export const delPost = async (id) => {
   return PostsModel.findByIdAndDelete(id);
 };
