@@ -5,6 +5,7 @@ import {
   delComment,
   delPost,
   archivePost as _archivePost,
+  postUpdate,
   getPostById,
   //getPost,
 } from '../db/posts.js';
@@ -72,17 +73,11 @@ export const createComment = async (req, res) => {
 
 export const deleteComment = async (req, res) => {
   try {
-    const { id: comment_id } = req.params;
-    if (ObjectId.isValid(comment_id)) {
-      delComment(comment_id);
-      return res.sendStatus(200);
-    } else {
-      return res.status(404).json({ error: 'Comment not found' });
-    }
+    const comment = get(req, 'comment_identity');
+    delComment(comment._id);
+    return res.sendStatus(200);
   } catch {
-    res.status(400).json({
-      error: 'Invalid request...',
-    });
+    res.sendStatus(500);
   }
 };
 
@@ -97,6 +92,28 @@ export const deletePost = async (req, res) => {
   }
 };
 
+// update posts
+export const updatePost = async (req, res) => {
+  try {
+    const { post_content } = req.body;
+
+    if (!post_content) {
+      return res.status(400).json({ error: 'No post content provided' });
+    }
+
+    const post = get(req, 'post_identity');
+
+    postUpdate(post._id, {
+      post_content,
+    });
+
+    return res.status(200).json({ message: 'Post updated successfully' });
+  } catch (error) {
+    console.error('Error updating post: ', error);
+    return res.sendStatus(500);
+  }
+};
+
 export const getPost = async (req, res) => {
   try {
     const { post_identity } = req;
@@ -105,5 +122,4 @@ export const getPost = async (req, res) => {
     console.error(error);
     return res.status(500).json({ error: 'Internal server error' });
   }
-}; 
-
+};
