@@ -82,3 +82,7 @@ export const delComment = async (id) => {
 export const getCommentById = async (id) => {
   return CommentModel.findById(id);
 };
+
+export const getCommentsForPost = async (id) => {
+  return CommentModel.find({"post_id": id});
+};

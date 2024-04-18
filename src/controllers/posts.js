@@ -6,6 +6,7 @@ import {
   delPost,
   archivePost as _archivePost,
   getPostById,
+  getCommentsForPost,
   //getPost,
 } from '../db/posts.js';
 import pkg from 'lodash';
@@ -99,5 +100,16 @@ export const getPost = async (req, res) => {
     console.error(error);
     return res.status(500).json({ error: 'Internal server error' });
   }
-}; 
+};
+
+export const getCommsForPost = async (req, res) => {
+  try {
+    const { id: post_id } = get(req, 'post_identity');
+    await getCommentsForPost(post_id);
+    return res.status(200).json({ message: 'Post comments fetched successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
 

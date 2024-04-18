@@ -7,6 +7,7 @@ import {
   deleteComment,
   deletePost,
   getPost,
+  getCommsForPost,
 } from '../controllers/posts.js';
 import {
   postExists,
@@ -42,4 +43,9 @@ export default (router) => {
     deletePost
   );
   router.get('/posts/:id', isAuthenticated, postExists, getPost);
+  router.get('/posts/:id/allComments', 
+    isAuthenticated, 
+    postExists, 
+    getCommsForPost
+  );
 };
