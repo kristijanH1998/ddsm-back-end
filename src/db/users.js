@@ -102,3 +102,9 @@ export const archiveProfile = async (id) => {
   user.profile_is_archived = true;
   return user.save();
 };
+
+export const unarchiveProfile = async (id) => {
+  const user = await getUserById(id, false);
+  user.profile_is_archived = false;
+  return user.save();
+};

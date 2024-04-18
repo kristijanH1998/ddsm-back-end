@@ -1,6 +1,10 @@
 import express from 'express';
 import { isAuthenticated } from '../middlewares/authentication.js';
-import { updateProfile, archiveProfile } from '../controllers/profile.js';
+import {
+  updateProfile,
+  archiveProfile,
+  unarchiveProfile,
+} from '../controllers/profile.js';
 import {
   isProfileOwner,
   checkUpdateProfilePayload,
@@ -18,5 +22,11 @@ export default (router) => {
     isAuthenticated,
     isProfileOwner,
     archiveProfile
+  );
+  router.put(
+    '/profile/unarchive',
+    isAuthenticated,
+    isProfileOwner,
+    unarchiveProfile
   );
 };
