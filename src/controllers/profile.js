@@ -44,7 +44,6 @@ export const archiveProfile = async (req, res) => {
 export const deleteProfile = async (req, res) => {
   try {
     const user = get(req, 'identity');
-    if (!user) return res.sendStatus(404);
     await _deleteProfile(user._id);
     res.sendStatus(200);
   } catch (error) {

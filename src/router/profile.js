@@ -26,7 +26,6 @@ export default (router) => {
   router.delete(
     '/profile/delete',
     isAuthenticated,
-    profileExists,
     isProfileOwner,
     deleteProfile
   );
