@@ -105,8 +105,8 @@ export const getPost = async (req, res) => {
 export const getCommsForPost = async (req, res) => {
   try {
     const { id: post_id } = req.params.id;
-    const {lim} = req.params.lim;
-    const {step} = req.params.step;
+    const lim = req.params.lim;
+    const step = req.params.step;
     await getCommentsForPost(post_id, lim, step);
     return res.status(200).json({ message: 'Post comments fetched successfully' });
   } catch (error) {
