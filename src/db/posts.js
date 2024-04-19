@@ -83,6 +83,6 @@ export const getCommentById = async (id) => {
   return CommentModel.findById(id);
 };
 
-export const getCommentsForPost = async (id) => {
-  return CommentModel.find({"post_id": id});
+export const getCommentsForPost = async (postId, lim, step) => {
+  return CommentModel.find({"post_id": postId}).skip(step).limit(lim).pretty();
 };
