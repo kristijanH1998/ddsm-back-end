@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+import { deleteAllPosts } from './posts.js';
+
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
@@ -104,7 +106,13 @@ export const archiveProfile = async (id) => {
 };
 
 export const deleteProfile = async (id) => {
-  await UserModel.deleteOne({ _id: id });
+  try {
+    await deleteAllPosts(id);
+    await UserModel.deleteOne({ _id: id });
+  } catch (error) {
+    console.error('Error deleting profile', error);
+    throw error;
+  }
 };
 
 export const unarchiveProfile = async (id) => {

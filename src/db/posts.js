@@ -91,3 +91,13 @@ export const delComment = async (id) => {
 export const getCommentById = async (id) => {
   return CommentModel.findById(id);
 };
+
+export const deleteAllPosts = async (id) => {
+  try {
+    await PostsModel.deleteMany({ post_owner_id: id});
+    await CommentModel.deleteMany({ comment_owner_id: id });
+  } catch (error) {
+    console.error('Error deleting posts and comments', error);
+    throw error;
+  }
+};
