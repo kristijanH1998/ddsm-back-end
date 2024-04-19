@@ -43,7 +43,7 @@ export default (router) => {
     deletePost
   );
   router.get('/posts/:id', isAuthenticated, postExists, getPost);
-  router.get('/posts/:id/allComments', 
+  router.get('/posts/:id/:lim/:step/allComments', 
     isAuthenticated, 
     postExists, 
     getCommsForPost

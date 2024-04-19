@@ -9,7 +9,7 @@ import {
   getCommentsForPost,
   //getPost,
 } from '../db/posts.js';
-import pkg from 'lodash';
+import pkg, { endsWith } from 'lodash';
 const { get, merge } = pkg;
 
 export const createPost = async (req, res) => {
@@ -104,8 +104,10 @@ export const getPost = async (req, res) => {
 
 export const getCommsForPost = async (req, res) => {
   try {
-    const { id: post_id } = get(req, 'post_identity');
-    await getCommentsForPost(post_id);
+    const { id: post_id } = req.params.id;
+    const {lim} = req.params.lim;
+    const {step} = req.params.step;
+    await getCommentsForPost(post_id, lim, step);
     return res.status(200).json({ message: 'Post comments fetched successfully' });
   } catch (error) {
     console.error(error);
