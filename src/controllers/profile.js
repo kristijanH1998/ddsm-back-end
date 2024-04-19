@@ -2,6 +2,7 @@ import {
   updateUserProfile,
   archiveProfile as _archiveProfile,
   deleteProfile as _deleteProfile,
+  unarchiveProfile as _unarchiveProfile,
 } from '../db/users.js';
 import pkg from 'lodash';
 const { get, merge } = pkg;
@@ -48,6 +49,16 @@ export const deleteProfile = async (req, res) => {
     res.sendStatus(200);
   } catch (error) {
     console.error('Error deleting profile', error);
+  }
+};
+
+export const unarchiveProfile = async (req, res) => {
+  try {
+    const user = get(req, 'identity');
+    await _unarchiveProfile(user._id);
+    res.sendStatus(200);
+  } catch {
+    console.error('Error trying to unarchive profile: ', error);
     return res.sendStatus(500);
   }
 };

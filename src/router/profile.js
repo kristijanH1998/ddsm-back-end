@@ -4,6 +4,7 @@ import {
   updateProfile,
   archiveProfile,
   deleteProfile,
+  unarchiveProfile,
 } from '../controllers/profile.js';
 import {
   isProfileOwner,
@@ -28,5 +29,11 @@ export default (router) => {
     isAuthenticated,
     isProfileOwner,
     deleteProfile
+  );
+  router.put(
+    '/profile/unarchive',
+    isAuthenticated,
+    isProfileOwner,
+    unarchiveProfile
   );
 };

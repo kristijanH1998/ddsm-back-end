@@ -5,9 +5,8 @@ import {
   delComment,
   delPost,
   archivePost as _archivePost,
+  unarchivePost as _unarchivePost,
   postUpdate,
-  getPostById,
-  //getPost,
 } from '../db/posts.js';
 import pkg from 'lodash';
 const { get, merge } = pkg;
@@ -43,6 +42,19 @@ export const archivePost = async (req, res) => {
     res.sendStatus(500);
   }
 };
+
+export const unarchivePost = async (req, res) => {
+  try {
+    const post = get(req, 'post_identity');
+    await _unarchivePost(post);
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+};
+
 // Comment creation
 export const createComment = async (req, res) => {
   const { comment_content } = req.body;

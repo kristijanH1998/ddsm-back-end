@@ -107,3 +107,9 @@ export const deleteProfile = async (id) => {
   const user = await getUserById(id, false);
   return user.remove();
 };
+
+export const unarchiveProfile = async (id) => {
+  const user = await getUserById(id, false);
+  user.profile_is_archived = false;
+  return user.save();
+};
