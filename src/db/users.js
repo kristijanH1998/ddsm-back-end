@@ -104,8 +104,7 @@ export const archiveProfile = async (id) => {
 };
 
 export const deleteProfile = async (id) => {
-  const user = await getUserById(id, false);
-  return user.remove();
+  await UserModel.deleteOne({ _id: id });
 };
 
 export const unarchiveProfile = async (id) => {

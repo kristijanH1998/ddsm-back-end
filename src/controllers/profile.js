@@ -49,6 +49,7 @@ export const deleteProfile = async (req, res) => {
     res.sendStatus(200);
   } catch (error) {
     console.error('Error deleting profile', error);
+    return res.status(500);
   }
 };
 
