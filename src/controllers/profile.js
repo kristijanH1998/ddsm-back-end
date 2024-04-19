@@ -5,6 +5,19 @@ import {
 import pkg from 'lodash';
 const { get, merge } = pkg;
 
+export const getProfile = async (req, res) => {
+  const profile = get(req, 'identity');
+
+  try {
+    return res.status(200).json({ profile });
+  } catch (error) {
+    console.error('Error updating profile: ', error);
+    return res.status(500).json({
+      error: 'Invalid request...',
+    });
+  }
+};
+
 export const updateProfile = async (req, res) => {
   const user = get(req, 'identity');
   const newProfileData = get(req, 'newProfileData');
