@@ -107,6 +107,9 @@ export const getCommsForPost = async (req, res) => {
     const { id: post_id } = req.params.id;
     const lim = req.params.lim;
     const step = req.params.step;
+    if (!post_id || !lim || !step) {
+      return res.status(400).json({ error: 'Post ID, Limit, and Step parameters required - invalid request'});
+    }
     await getCommentsForPost(post_id, lim, step);
     return res.status(200).json({ message: 'Post comments fetched successfully' });
   } catch (error) {
