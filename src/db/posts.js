@@ -56,6 +56,11 @@ export const delPost = async (id) => {
   return PostsModel.findByIdAndDelete(id);
 };
 
+export const getLikesForPost = async (id) => {
+  const post = PostsModel.findById(id);
+  return post.post_like_count;
+};
+
 // Schema for creating comment
 const commentSchema = new mongoose.Schema({
   post_id: {

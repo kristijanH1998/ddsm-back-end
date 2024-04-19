@@ -7,6 +7,7 @@ import {
   archivePost as _archivePost,
   unarchivePost as _unarchivePost,
   postUpdate,
+  getLikesForPost
 } from '../db/posts.js';
 import pkg from 'lodash';
 const { get, merge } = pkg;
@@ -135,3 +136,14 @@ export const getPost = async (req, res) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+export const getLikesForPost = async (req, res) => {
+  try {
+    const { id: post_id } = req.params;
+    await getLikesForPost(post_id);
+    return res.status(200).json({ message: 'Post likes fetched successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+}
