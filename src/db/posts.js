@@ -57,7 +57,7 @@ export const delPost = async (id) => {
 };
 
 export const getLikesForPost = async (id) => {
-  return PostsModel.find({_id: id}, {post_like_count: 1,_id: 0});
+  return PostsModel.find({_id: id}, {post_like_count: 1, _id: 0});
 };
 
 // Schema for creating comment
