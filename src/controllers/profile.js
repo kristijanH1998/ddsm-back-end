@@ -45,11 +45,15 @@ export const archiveProfile = async (req, res) => {
 export const deleteProfile = async (req, res) => {
   try {
     const user = get(req, 'identity');
-    await _deleteProfile(user._id);
-    res.sendStatus(200);
+    const { status, message } = await _deleteProfile(user._id);
+    if (status === 400) {
+      res.status(status).json({ message });
+    } else {
+      res.sendStatus(status);
+    }
   } catch (error) {
-    console.error('Error deleting profile', error);
-    return res.status(500);
+    console.error('Error deleting profile:', error);
+    return res.sendStatus(500);
   }
 };
 
