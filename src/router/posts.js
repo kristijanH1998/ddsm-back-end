@@ -60,5 +60,5 @@ export default (router) => {
   );
   router.get('/posts/:id', isAuthenticated, postExists, getPost);
   router.get('/posts/:id/likes', isAuthenticated, postExists, getLikesForPost);
-  router.put('/posts/:id/deleteLike', isAuthenticated, postExists, );
+  router.put('/posts/:id/deleteLike', isAuthenticated, postExists, isLikeOwner, deleteLike);
 };

@@ -22,6 +22,10 @@ const postSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  post_likes: {
+    type: [String],
+    default: undefined,
+  },
   post_comment_count: {
     type: Number,
     default: 0,
@@ -54,10 +58,6 @@ export const postUpdate = async (id, values) => {
 
 export const delPost = async (id) => {
   return PostsModel.findByIdAndDelete(id);
-};
-
-export const getLikesForPost = async (id) => {
-  return PostsModel.find({_id: id}, {post_like_count: 1, _id: 0});
 };
 
 // Schema for creating comment
@@ -95,3 +95,28 @@ export const delComment = async (id) => {
 export const getCommentById = async (id) => {
   return CommentModel.findById(id);
 };
+
+const likeSchema = new mongoose.Schema({
+  post_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Post',
+    required: false,
+  },
+  like_owner_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+});
+
+export const LikeModel = mongoose.model('Like', likeSchema);
+
+export const getLikesForPost = async (id) => {
+  return PostsModel.find({_id: id}, {post_likes: 1, _id: 0});
+};
+export const getLikeCountForPost = async (id) => {
+  return PostsModel.find({_id: id}, {post_like_count: 1, _id: 0});
+};
+
+//delete like
+//add like
