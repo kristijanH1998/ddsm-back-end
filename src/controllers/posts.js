@@ -8,6 +8,8 @@ import {
   getPostById,
   getCommentsForPost,
   //getPost,
+  unarchivePost as _unarchivePost,
+  postUpdate,
 } from '../db/posts.js';
 import pkg from 'lodash';
 const { get, merge } = pkg;
@@ -43,6 +45,19 @@ export const archivePost = async (req, res) => {
     res.sendStatus(500);
   }
 };
+
+export const unarchivePost = async (req, res) => {
+  try {
+    const post = get(req, 'post_identity');
+    await _unarchivePost(post);
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+};
+
 // Comment creation
 export const createComment = async (req, res) => {
   const { comment_content } = req.body;
@@ -89,6 +104,28 @@ export const deletePost = async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+// update posts
+export const updatePost = async (req, res) => {
+  try {
+    const { post_content } = req.body;
+
+    if (!post_content) {
+      return res.status(400).json({ error: 'No post content provided' });
+    }
+
+    const post = get(req, 'post_identity');
+
+    postUpdate(post._id, {
+      post_content,
+    });
+
+    return res.status(200).json({ message: 'Post updated successfully' });
+  } catch (error) {
+    console.error('Error updating post: ', error);
+    return res.sendStatus(500);
   }
 };
 

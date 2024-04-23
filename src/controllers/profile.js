@@ -1,6 +1,7 @@
 import {
   updateUserProfile,
   archiveProfile as _archiveProfile,
+  unarchiveProfile as _unarchiveProfile,
 } from '../db/users.js';
 import pkg from 'lodash';
 const { get, merge } = pkg;
@@ -32,11 +33,21 @@ export const updateProfile = async (req, res) => {
 export const archiveProfile = async (req, res) => {
   try {
     const user = get(req, 'identity');
-    if (!user) return res.sendStatus(404);
     await _archiveProfile(user._id);
     res.sendStatus(200);
   } catch (error) {
     console.error('Error archiving profile: ', error);
+    return res.sendStatus(500);
+  }
+};
+
+export const unarchiveProfile = async (req, res) => {
+  try {
+    const user = get(req, 'identity');
+    await _unarchiveProfile(user._id);
+    res.sendStatus(200);
+  } catch {
+    console.error('Error trying to unarchive profile: ', error);
     return res.sendStatus(500);
   }
 };
