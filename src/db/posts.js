@@ -100,7 +100,7 @@ const likeSchema = new mongoose.Schema({
   post_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Post',
-    required: false,
+    required: true,
   },
   like_owner_id: {
     type: mongoose.Schema.Types.ObjectId,
