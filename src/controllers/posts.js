@@ -9,7 +9,7 @@ import {
   getCommentsForPost,
   //getPost,
 } from '../db/posts.js';
-import pkg, { endsWith } from 'lodash';
+import pkg from 'lodash';
 const { get, merge } = pkg;
 
 export const createPost = async (req, res) => {
@@ -104,14 +104,11 @@ export const getPost = async (req, res) => {
 
 export const getCommsForPost = async (req, res) => {
   try {
-    const { id: post_id } = req.params.id;
-    const lim = req.params.lim;
-    const step = req.params.step;
-    if (!post_id || !lim || !step) {
-      return res.status(400).json({ error: 'Post ID, Limit, and Step parameters required - invalid request'});
-    }
-    await getCommentsForPost(post_id, lim, step);
-    return res.status(200).json({ message: 'Post comments fetched successfully' });
+    const post_id = req.params.id;
+    const lim = Number(req.params.lim);
+    const step = Number(req.params.step);
+    const comments = await getCommentsForPost(post_id, lim, step);
+    return res.status(200).json(comments);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Internal server error' });
