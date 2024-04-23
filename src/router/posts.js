@@ -9,7 +9,7 @@ import {
   updatePost,
   getPost,
   unarchivePost,
-  getLikesForPost,
+  getPostLikeCount,
 } from '../controllers/posts.js';
 import {
   postExists,
@@ -59,6 +59,6 @@ export default (router) => {
     updatePost
   );
   router.get('/posts/:id', isAuthenticated, postExists, getPost);
-  router.get('/posts/:id/likes', isAuthenticated, postExists, getLikesForPost);
-  router.put('/posts/:id/deleteLike', isAuthenticated, postExists, isLikeOwner, deleteLike);
+  router.get('/posts/:id/likes', isAuthenticated, postExists, getPostLikeCount);
+  // router.put('/posts/:id/deleteLike', isAuthenticated, postExists, isLikeOwner, deleteLike);
 };

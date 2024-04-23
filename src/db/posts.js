@@ -107,15 +107,19 @@ const likeSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  like_timestamp: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 export const LikeModel = mongoose.model('Like', likeSchema);
 
-export const getLikesForPost = async (id) => {
-  return PostsModel.find({_id: id}, {post_likes: 1, _id: 0});
-};
+// export const getLikesForPost = async (id) => {
+//   return PostsModel.find({_id: id}, {post_likes_count: 1, _id: 0});
+// };
 export const getLikeCountForPost = async (id) => {
-  return PostsModel.find({_id: id}, {post_like_count: 1, _id: 0});
+  return PostsModel.find({"_id": id}, {post_like_count: 1});
 };
 
 //delete like
