@@ -2,6 +2,7 @@ import { ObjectId } from 'mongodb';
 import {
   createNewPost,
   createNewComment,
+  createNewLike,
   delComment,
   delPost,
   archivePost as _archivePost,
@@ -133,5 +134,24 @@ export const getPost = async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+export const createLike = async (req, res) => {
+  const { id: post_id } = req.params;
+  const user = get(req, 'identity');
+
+  try {
+    const updatedPost = await createNewLike({
+      post_id,
+      like_owner_id: user._id.toString(),
+    });
+
+    res.status(201).json(updatedPost);
+  } catch (error) {
+    console.error('error creating like:', error);
+    res.status(400).json({
+      error: 'Invalid request...',
+    });
   }
 };
