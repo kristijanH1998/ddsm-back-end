@@ -59,6 +59,6 @@ export default (router) => {
     updatePost
   );
   router.get('/posts/:id', isAuthenticated, postExists, getPost);
-  router.get('/posts/:id/likes', isAuthenticated, postExists, getPostLikeCount);
+  router.get('/posts/:id/likeNum', isAuthenticated, postExists, getPostLikeCount);
   // router.put('/posts/:id/deleteLike', isAuthenticated, postExists, isLikeOwner, deleteLike);
 };
