@@ -120,6 +120,8 @@ export const getLikeCountForPost = async (id) => {
 
 export const getPostLikes = async (postId, lim, step) => {
   return LikeModel.find({"post_id": postId}).skip(step).limit(lim);
+}
+
 export const deleteAllPosts = async (id) => {
   try {
     await PostsModel.deleteMany({ post_owner_id: id});
