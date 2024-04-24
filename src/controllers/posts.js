@@ -140,19 +140,18 @@ export const getPost = async (req, res) => {
 export const createLike = async (req, res) => {
   const { id: post_id } = req.params;
   const user = get(req, 'identity');
-
   try {
-    const updatedPost = await createNewLike({
+    const statusCode = await createNewLike({
       post_id,
       like_owner_id: user._id.toString(),
     });
-    if (updatedPost.post) {
-      res.status(201).json(updatedPost);
+    if (statusCode === 201) {
+      res.status(201).json({ message: 'New like created successfully' });
     } else {
       res.status(200).json({ message: 'You have already liked this post.' });
     }
   } catch (error) {
-    console.error('error creating like:', error);
+    console.error('Error creating like:', error);
     res.status(400).json({
       error: 'Invalid request...',
     });
