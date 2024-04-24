@@ -2,6 +2,7 @@ import { ObjectId } from 'mongodb';
 import {
   createNewPost,
   createNewComment,
+  createNewLike,
   delComment,
   delPost,
   archivePost as _archivePost,
@@ -155,3 +156,23 @@ export const getCommsForPost = async (req, res) => {
   }
 };
 
+export const createLike = async (req, res) => {
+  const { id: post_id } = req.params;
+  const user = get(req, 'identity');
+  try {
+    const statusCode = await createNewLike({
+      post_id,
+      like_owner_id: user._id.toString(),
+    });
+    if (statusCode === 201) {
+      res.status(201).json({ message: 'New like created successfully' });
+    } else {
+      res.status(200).json({ message: 'You have already liked this post.' });
+    }
+  } catch (error) {
+    console.error('Error creating like:', error);
+    res.status(400).json({
+      error: 'Invalid request...',
+    });
+  }
+};
