@@ -148,12 +148,12 @@ export const getPostLikeCount = async (req, res) => {
   }
 }
 
-// export const deleteLike = async (req, res) => {
-//   try {
-//     const like = get(req, 'like_identity');
-//     delLike(like._id);
-//     return res.sendStatus(200);
-//   } catch {
-//     res.sendStatus(500);
-//   }
-// };
+export const deleteLike = async (req, res) => {
+  try {
+    const like = get(req, 'like_identity');
+    delLike(like._id);
+    return res.sendStatus(200);
+  } catch {
+    res.sendStatus(500);
+  }
+};

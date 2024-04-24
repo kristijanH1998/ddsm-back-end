@@ -136,3 +136,7 @@ export const deleteAllPosts = async (id) => {
     throw error;
   }
 };
+
+export const delLike = async (id) => {
+  return LikeModel.findOneAndDelete(id);
+};
