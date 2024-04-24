@@ -146,8 +146,11 @@ export const createLike = async (req, res) => {
       post_id,
       like_owner_id: user._id.toString(),
     });
-
-    res.status(201).json(updatedPost);
+    if (updatedPost.post) {
+      res.status(201).json(updatedPost);
+    } else {
+      res.status(200).json({ message: 'You have already liked this post.' });
+    }
   } catch (error) {
     console.error('error creating like:', error);
     res.status(400).json({
