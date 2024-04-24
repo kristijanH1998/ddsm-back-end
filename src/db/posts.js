@@ -115,12 +115,10 @@ const likeSchema = new mongoose.Schema({
 
 export const LikeModel = mongoose.model('Like', likeSchema);
 
-// export const getLikesForPost = async (id) => {
-//   return PostsModel.find({_id: id}, {post_likes_count: 1, _id: 0});
-// };
 export const getLikeCountForPost = async (id) => {
   return PostsModel.find({"_id": id}, {post_like_count: 1});
 };
 
-//delete like
-//add like
+export const getPostLikes = async (postId, lim, step) => {
+  return LikeModel.find({"post_id": postId}).skip(step).limit(lim);
+};
