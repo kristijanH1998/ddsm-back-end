@@ -95,9 +95,48 @@ export const getCommentById = async (id) => {
   return CommentModel.findById(id);
 };
 
+// schema for creating like
+const likeSchema = new mongoose.Schema({
+  post_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Post',
+    required: true,
+  },
+  like_owner_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  like_timestamp: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+export const LikeModel = mongoose.model('Like', likeSchema);
+
+export const createNewLike = async (values) => {
+  const { post_id, like_owner_id } = values;
+  const existingLike = await LikeModel.findOne({
+    post_id,
+    like_owner_id,
+  });
+  if (existingLike) {
+    return 200; // already liked
+  }
+  const post = await PostsModel.findById(values.post_id);
+  post.post_like_count += 1;
+  await post.save();
+  await LikeModel.create({
+    post_id: values.post_id,
+    like_owner_id: values.like_owner_id,
+  });
+  return 201; // new like created
+};
+
 export const deleteAllPosts = async (id) => {
   try {
-    await PostsModel.deleteMany({ post_owner_id: id});
+    await PostsModel.deleteMany({ post_owner_id: id });
     await CommentModel.deleteMany({ comment_owner_id: id });
   } catch (error) {
     console.error('Error deleting posts and comments', error);
