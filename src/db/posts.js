@@ -22,10 +22,6 @@ const postSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  post_likes: {
-    type: [String],
-    default: undefined,
-  },
   post_comment_count: {
     type: Number,
     default: 0,
