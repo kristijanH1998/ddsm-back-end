@@ -53,6 +53,9 @@ export const postUpdate = async (id, values) => {
 };
 
 export const delPost = async (id) => {
+  // Delete all associated comments
+  await CommentModel.deleteMany({ post_id: id });
+
   return PostsModel.findByIdAndDelete(id);
 };
 
