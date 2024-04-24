@@ -3,6 +3,7 @@ import { isAuthenticated } from '../middlewares/authentication.js';
 import {
   updateProfile,
   archiveProfile,
+  deleteProfile,
   unarchiveProfile,
 } from '../controllers/profile.js';
 import {
@@ -22,6 +23,12 @@ export default (router) => {
     isAuthenticated,
     isProfileOwner,
     archiveProfile
+  );
+  router.delete(
+    '/profile/delete',
+    isAuthenticated,
+    isProfileOwner,
+    deleteProfile
   );
   router.put(
     '/profile/unarchive',

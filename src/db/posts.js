@@ -53,6 +53,9 @@ export const postUpdate = async (id, values) => {
 };
 
 export const delPost = async (id) => {
+  // Delete all associated comments
+  await CommentModel.deleteMany({ post_id: id });
+
   return PostsModel.findByIdAndDelete(id);
 };
 
@@ -117,4 +120,12 @@ export const getLikeCountForPost = async (id) => {
 
 export const getPostLikes = async (postId, lim, step) => {
   return LikeModel.find({"post_id": postId}).skip(step).limit(lim);
+export const deleteAllPosts = async (id) => {
+  try {
+    await PostsModel.deleteMany({ post_owner_id: id});
+    await CommentModel.deleteMany({ comment_owner_id: id });
+  } catch (error) {
+    console.error('Error deleting posts and comments', error);
+    throw error;
+  }
 };
