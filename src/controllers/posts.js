@@ -147,13 +147,3 @@ export const getPostLikeCount = async (req, res) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 }
-
-// export const deleteLike = async (req, res) => {
-//   try {
-//     const like = get(req, 'like_identity');
-//     delLike(like._id);
-//     return res.sendStatus(200);
-//   } catch {
-//     res.sendStatus(500);
-//   }
-// };
