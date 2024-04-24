@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+import { deleteAllPosts } from './posts.js';
+
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
@@ -101,6 +103,27 @@ export const archiveProfile = async (id) => {
   const user = await getUserById(id, false);
   user.profile_is_archived = true;
   return user.save();
+};
+
+export const deleteProfile = async (id) => {
+  const user = await UserModel.findById(id);
+  if (!user.profile_is_archived) {
+    return {
+      status: 400,
+      message: 'Cannot delete a profile that is not archived',
+    };
+  }
+  try {
+    await deleteAllPosts(id);
+    await UserModel.deleteOne({ _id: id });
+    return { status: 200 };
+  } catch (error) {
+    console.error('Error deleting profile:', error);
+    return {
+      status: 500,
+      message: 'Error deleting profile',
+    };
+  }
 };
 
 export const unarchiveProfile = async (id) => {
