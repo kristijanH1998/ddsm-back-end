@@ -3,6 +3,7 @@ import { isAuthenticated } from '../middlewares/authentication.js';
 import {
   createPost,
   createComment,
+  createLike,
   archivePost,
   deleteComment,
   deletePost,
@@ -62,4 +63,5 @@ export default (router) => {
   router.get('/posts/:id', isAuthenticated, postExists, getPost);
   router.get('/posts/:id/likeNum', isAuthenticated, postExists, getPostLikeCount);
   router.get('/posts/:id/:lim/:step/likes', isAuthenticated, postExists, getLikesForPost);
+  router.post('/posts/:id/like', isAuthenticated, postExists, createLike);
 };
