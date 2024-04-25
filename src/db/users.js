@@ -140,7 +140,8 @@ export const getUsernamesAndPics = async (comments) =>  {
   const usernamesAndPics = Array();
   for(const user of users) {
     const info = await UserModel.findById(user.toString());
-    usernamesAndPics.push({username: info.username, profile_pic: info.user_info.profile_picture});
+    usernamesAndPics.push({username: info.username, profile_pic: info.user_info.profile_picture,
+      first_name: info.user_info.first_name, last_name: info.user_info.last_name});
   }
   return usernamesAndPics;
 };
