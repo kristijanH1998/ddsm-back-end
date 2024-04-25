@@ -11,6 +11,7 @@ import {
   getPost,
   getCommsForPost,
   unarchivePost,
+  getLikesForPost,
 } from '../controllers/posts.js';
 import {
   postExists,
@@ -60,6 +61,7 @@ export default (router) => {
     updatePost
   );
   router.get('/posts/:id', isAuthenticated, postExists, getPost);
+  router.get('/posts/:id/:lim/:step/likes', isAuthenticated, postExists, getLikesForPost);
   router.get('/posts/:id/:lim/:step/allComments', 
     isAuthenticated, 
     postExists, 

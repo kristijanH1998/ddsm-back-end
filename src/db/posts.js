@@ -147,3 +147,7 @@ export const deleteAllPosts = async (id) => {
     throw error;
   }
 };
+
+export const getPostLikes = async (postId, lim, step) => {
+  return LikeModel.find({"post_id": postId}).skip(step).limit(lim);
+};

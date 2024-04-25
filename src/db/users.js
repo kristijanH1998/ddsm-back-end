@@ -132,11 +132,17 @@ export const unarchiveProfile = async (id) => {
   return user.save();
 };
 
-export const getUsernamesAndPics = async (comments) =>  {
+export const getUsernamesAndPics = async (reactions) =>  {
   const users = new Array();
-  comments.forEach(comment => {
-    users.push(comment.comment_owner_id);
-  })
+  if(reactions.type == 'comments'){
+    reactions.content.forEach(comment => {
+      users.push(comment.comment_owner_id);
+    })
+  } else {
+    reactions.content.forEach(like => {
+      users.push(like.like_owner_id);
+    })
+  }
   const usernamesAndPics = Array();
   for(const user of users) {
     const info = await UserModel.findById(user.toString());

@@ -11,6 +11,7 @@ import {
   //getPost,
   unarchivePost as _unarchivePost,
   postUpdate,
+  getPostLikes,
 } from '../db/posts.js';
 import {
   getUsernamesAndPics,
@@ -143,6 +144,22 @@ export const getPost = async (req, res) => {
   }
 };
 
+export const getLikesForPost = async(req, res) => {
+  try {
+    const post_id = req.params.id;
+    const lim = Number(req.params.lim);
+    const step = Number(req.params.step);
+    if(lim <= 0 || step < 0) {
+      return res.status(400).json({ error: 'Limit must be greater than 0 and step greater than or equal to 0.' });
+    }
+    const likes = await getPostLikes(post_id, lim, step);
+    const userIds = await getUsernamesAndPics({type:'likes', content: likes});
+    return res.status(200).json(userIds);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+}
 export const getCommsForPost = async (req, res) => {
   try {
     const post_id = req.params.id;
@@ -152,7 +169,7 @@ export const getCommsForPost = async (req, res) => {
       return res.status(400).json({ error: 'Limit must be greater than 0 and step greater than or equal to 0.' });
     }
     const comments = await getCommentsForPost(post_id, lim, step);
-    const userIds = await getUsernamesAndPics(comments);
+    const userIds = await getUsernamesAndPics({type:'comments', content: comments});
     return res.status(200).json(userIds);
   } catch (error) {
     console.error(error);
