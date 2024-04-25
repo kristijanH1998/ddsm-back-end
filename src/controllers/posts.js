@@ -167,8 +167,6 @@ export const getCommsForPost = async (req, res) => {
     if(lim <= 0 || step < 0) {
       return res.status(400).json({ error: 'Limit must be greater than 0 and step greater than or equal to 0.' });
     }
-    const likes = await getPostLikes(post_id, lim, step);
-    return res.status(200).json(likes);
     const comments = await getCommentsForPost(post_id, lim, step);
     const userIds = await getUsernamesAndPics(comments);
     return res.status(200).json(userIds);
