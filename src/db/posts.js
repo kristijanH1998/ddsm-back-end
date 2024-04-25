@@ -95,10 +95,7 @@ export const getCommentById = async (id) => {
   return CommentModel.findById(id);
 };
 
-<<<<<<< HEAD
-=======
 // schema for creating like
->>>>>>> main
 const likeSchema = new mongoose.Schema({
   post_id: {
     type: mongoose.Schema.Types.ObjectId,
