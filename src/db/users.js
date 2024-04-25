@@ -131,3 +131,16 @@ export const unarchiveProfile = async (id) => {
   user.profile_is_archived = false;
   return user.save();
 };
+
+export const getUsernamesAndPics = async (comments) =>  {
+  const users = new Array();
+  comments.forEach(comment => {
+    users.push(comment.comment_owner_id);
+  })
+  const usernamesAndPics = Array();
+  for(const user of users) {
+    const info = await UserModel.findById(user.toString());
+    usernamesAndPics.push({username: info.username, profile_pic: info.user_info.profile_picture});
+  }
+  return usernamesAndPics;
+};

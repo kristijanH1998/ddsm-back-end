@@ -12,6 +12,9 @@ import {
   unarchivePost as _unarchivePost,
   postUpdate,
 } from '../db/posts.js';
+import {
+  getUsernamesAndPics,
+} from '../db/users.js';
 import pkg from 'lodash';
 const { get, merge } = pkg;
 
@@ -149,7 +152,8 @@ export const getCommsForPost = async (req, res) => {
       return res.status(400).json({ error: 'Limit must be greater than 0 and step greater than or equal to 0.' });
     }
     const comments = await getCommentsForPost(post_id, lim, step);
-    return res.status(200).json(comments);
+    const userIds = await getUsernamesAndPics(comments);
+    return res.status(200).json(userIds);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Internal server error' });
