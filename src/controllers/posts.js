@@ -5,9 +5,11 @@ import {
   createNewLike,
   delComment,
   delPost,
+  delLike,
   archivePost as _archivePost,
   unarchivePost as _unarchivePost,
   postUpdate,
+  getLikeCountForPost
 } from '../db/posts.js';
 import pkg from 'lodash';
 const { get, merge } = pkg;
@@ -137,6 +139,17 @@ export const getPost = async (req, res) => {
   }
 };
 
+export const getPostLikeCount = async (req, res) => {
+  try {
+    const post_id = req.params;
+    const likeCount = await getLikeCountForPost(post_id.id);
+    return res.status(200).json(likeCount[0].post_like_count);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
 export const createLike = async (req, res) => {
   const { id: post_id } = req.params;
   const user = get(req, 'identity');
@@ -157,3 +170,25 @@ export const createLike = async (req, res) => {
     });
   }
 };
+
+export const deleteLike = async (req, res) => {
+  const { id: post_id } = req.params;
+  const user = get(req, 'identity');
+  try {
+    const statusCode = await delLike({
+      post_id,
+      like_owner_id: user._id.toString(),
+    });
+    if (statusCode === 200) {
+      res.status(200).json({ message: 'Like deleted successfully' });
+    } else {
+      res.status(404).json({ message: 'Like not found.' });
+    }
+  } catch (error) {
+    console.error('Error deleting like:', error);
+    res.status(400).json({
+      error: 'Invalid request...',
+    });
+  }
+};
+

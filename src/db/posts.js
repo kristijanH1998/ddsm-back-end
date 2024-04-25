@@ -22,6 +22,10 @@ const postSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  post_likes: {
+    type: [String],
+    default: undefined,
+  },
   post_comment_count: {
     type: Number,
     default: 0,
@@ -115,6 +119,10 @@ const likeSchema = new mongoose.Schema({
 
 export const LikeModel = mongoose.model('Like', likeSchema);
 
+export const getLikeCountForPost = async (id) => {
+  return PostsModel.find({"_id": id}, {post_like_count: 1});
+};
+
 export const createNewLike = async (values) => {
   const { post_id, like_owner_id } = values;
   const existingLike = await LikeModel.findOne({
@@ -142,4 +150,24 @@ export const deleteAllPosts = async (id) => {
     console.error('Error deleting posts and comments', error);
     throw error;
   }
+};
+
+export const getLikeById = async (id) => {
+  return LikeModel.findById(id);
+};
+
+export const delLike = async (values) => {
+  const { post_id, like_owner_id } = values;
+  const existingLike = await LikeModel.findOne({
+    post_id,
+    like_owner_id,
+  });
+  if (!existingLike) {
+    return 404; // like not found
+  }
+  const post = await PostsModel.findById(values.post_id);
+  post.post_like_count -= 1;
+  await post.save();
+  await LikeModel.deleteOne({ _id: existingLike._id });
+  return 200; // like deleted successfully
 };
