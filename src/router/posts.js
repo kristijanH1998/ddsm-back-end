@@ -9,6 +9,7 @@ import {
   deletePost,
   updatePost,
   getPost,
+  getCommsForPost,
   unarchivePost,
   getPostLikeCount,
   getLikesForPost,
@@ -61,7 +62,15 @@ export default (router) => {
     updatePost
   );
   router.get('/posts/:id', isAuthenticated, postExists, getPost);
+<<<<<<< HEAD
   router.get('/posts/:id/likeNum', isAuthenticated, postExists, getPostLikeCount);
   router.get('/posts/:id/:lim/:step/likes', isAuthenticated, postExists, getLikesForPost);
+=======
+  router.get('/posts/:id/:lim/:step/allComments', 
+    isAuthenticated, 
+    postExists, 
+    getCommsForPost
+  );
+>>>>>>> get-comments-for-a-post
   router.post('/posts/:id/like', isAuthenticated, postExists, createLike);
 };

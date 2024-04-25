@@ -6,11 +6,17 @@ import {
   delComment,
   delPost,
   archivePost as _archivePost,
+  getPostById,
+  getCommentsForPost,
+  //getPost,
   unarchivePost as _unarchivePost,
   postUpdate,
   getLikeCountForPost,
   getPostLikes,
 } from '../db/posts.js';
+import {
+  getUsernamesAndPics,
+} from '../db/users.js';
 import pkg from 'lodash';
 const { get, merge } = pkg;
 
@@ -139,6 +145,7 @@ export const getPost = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
 export const getPostLikeCount = async (req, res) => {
   try {
     const post_id = req.params;
@@ -151,6 +158,9 @@ export const getPostLikeCount = async (req, res) => {
 }
 
 export const getLikesForPost = async(req, res) => {
+=======
+export const getCommsForPost = async (req, res) => {
+>>>>>>> get-comments-for-a-post
   try {
     const post_id = req.params.id;
     const lim = Number(req.params.lim);
@@ -158,13 +168,23 @@ export const getLikesForPost = async(req, res) => {
     if(lim <= 0 || step < 0) {
       return res.status(400).json({ error: 'Limit must be greater than 0 and step greater than or equal to 0.' });
     }
+<<<<<<< HEAD
     const likes = await getPostLikes(post_id, lim, step);
     return res.status(200).json(likes);
+=======
+    const comments = await getCommentsForPost(post_id, lim, step);
+    const userIds = await getUsernamesAndPics(comments);
+    return res.status(200).json(userIds);
+>>>>>>> get-comments-for-a-post
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 };
+<<<<<<< HEAD
+=======
+
+>>>>>>> get-comments-for-a-post
 export const createLike = async (req, res) => {
   const { id: post_id } = req.params;
   const user = get(req, 'identity');
