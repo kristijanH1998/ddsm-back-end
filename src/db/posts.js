@@ -22,6 +22,10 @@ const postSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  post_likes: {
+    type: [String],
+    default: undefined,
+  },
   post_comment_count: {
     type: Number,
     default: 0,
@@ -53,6 +57,8 @@ export const postUpdate = async (id, values) => {
 };
 
 export const delPost = async (id) => {
+  await CommentModel.deleteMany({ post_id: id });
+  await LikeModel.deleteMany({ post_id: id });
   return PostsModel.findByIdAndDelete(id);
 };
 
@@ -90,4 +96,78 @@ export const delComment = async (id) => {
 
 export const getCommentById = async (id) => {
   return CommentModel.findById(id);
+};
+
+// schema for creating like
+const likeSchema = new mongoose.Schema({
+  post_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Post',
+    required: true,
+  },
+  like_owner_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  like_timestamp: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+export const LikeModel = mongoose.model('Like', likeSchema);
+
+export const getLikeCountForPost = async (id) => {
+  return PostsModel.find({"_id": id}, {post_like_count: 1});
+};
+
+export const createNewLike = async (values) => {
+  const { post_id, like_owner_id } = values;
+  const existingLike = await LikeModel.findOne({
+    post_id,
+    like_owner_id,
+  });
+  if (existingLike) {
+    return 200; // already liked
+  }
+  const post = await PostsModel.findById(values.post_id);
+  post.post_like_count += 1;
+  await post.save();
+  await LikeModel.create({
+    post_id: values.post_id,
+    like_owner_id: values.like_owner_id,
+  });
+  return 201; // new like created
+};
+
+export const deleteAllPosts = async (id) => {
+  try {
+    await PostsModel.deleteMany({ post_owner_id: id });
+    await CommentModel.deleteMany({ comment_owner_id: id });
+    await LikeModel.deleteMany({ like_owner_id: id });
+  } catch (error) {
+    console.error('Error deleting posts and comments', error);
+    throw error;
+  }
+};
+
+export const getLikeById = async (id) => {
+  return LikeModel.findById(id);
+};
+
+export const delLike = async (values) => {
+  const { post_id, like_owner_id } = values;
+  const existingLike = await LikeModel.findOne({
+    post_id,
+    like_owner_id,
+  });
+  if (!existingLike) {
+    return 404; // like not found
+  }
+  const post = await PostsModel.findById(values.post_id);
+  post.post_like_count -= 1;
+  await post.save();
+  await LikeModel.deleteOne({ _id: existingLike._id });
+  return 200; // like deleted successfully
 };
