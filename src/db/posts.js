@@ -113,7 +113,7 @@ export const delComment = async (id) => {
   } catch (error) {
     console.error('Error deleting comment:', error);
     throw error;
-  } 
+  }
 };
 
 export const getCommentById = async (id) => {
@@ -121,7 +121,7 @@ export const getCommentById = async (id) => {
 };
 
 export const getCommentsForPost = async (postId, lim, step) => {
-  return CommentModel.find({"post_id": postId}).skip(step).limit(lim);
+  return CommentModel.find({ post_id: postId }).skip(step).limit(lim);
 };
 
 // schema for creating like
@@ -145,7 +145,7 @@ const likeSchema = new mongoose.Schema({
 export const LikeModel = mongoose.model('Like', likeSchema);
 
 export const getLikeCountForPost = async (id) => {
-  return PostsModel.find({"_id": id}, {post_like_count: 1});
+  return PostsModel.find({ _id: id }, { post_like_count: 1 });
 };
 
 export const createNewLike = async (values) => {
@@ -179,8 +179,9 @@ export const deleteAllPosts = async (id) => {
 };
 
 export const getPostLikes = async (postId, lim, step) => {
-  return LikeModel.find({"post_id": postId}).skip(step).limit(lim);
-}
+  return LikeModel.find({ post_id: postId }).skip(step).limit(lim);
+};
+
 export const getLikeById = async (id) => {
   return LikeModel.findById(id);
 };

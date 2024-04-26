@@ -64,10 +64,16 @@ export default (router) => {
     updatePost
   );
   router.get('/posts/:id', isAuthenticated, postExists, getPost);
-  router.get('/posts/:id/:lim/:step/likes', isAuthenticated, postExists, getLikesForPost);
-  router.get('/posts/:id/:lim/:step/allComments', 
-    isAuthenticated, 
-    postExists, 
+  router.get(
+    '/posts/:id/:lim/:step/likes',
+    isAuthenticated,
+    postExists,
+    getLikesForPost
+  );
+  router.get(
+    '/posts/:id/:lim/:step/allComments',
+    isAuthenticated,
+    postExists,
     getCommsForPost
   );
   router.get('/posts/:id/likes', isAuthenticated, postExists, getPostLikeCount);
