@@ -5,6 +5,7 @@ import {
   createNewLike,
   delComment,
   delPost,
+  delLike,
   archivePost as _archivePost,
   getPostById,
   getCommentsForPost,
@@ -95,7 +96,7 @@ export const createComment = async (req, res) => {
 export const deleteComment = async (req, res) => {
   try {
     const comment = get(req, 'comment_identity');
-    delComment(comment._id);
+    await delComment(comment._id);
     return res.sendStatus(200);
   } catch {
     res.sendStatus(500);
@@ -156,6 +157,7 @@ export const getPostLikeCount = async (req, res) => {
   }
 }
 
+<<<<<<< HEAD
 export const getLikesForPost = async(req, res) => {
   try {
     const post_id = req.params.id;
@@ -189,6 +191,8 @@ export const getCommsForPost = async (req, res) => {
   }
 };
 
+=======
+>>>>>>> main
 export const createLike = async (req, res) => {
   const { id: post_id } = req.params;
   const user = get(req, 'identity');
@@ -209,3 +213,28 @@ export const createLike = async (req, res) => {
     });
   }
 };
+<<<<<<< HEAD
+=======
+
+export const deleteLike = async (req, res) => {
+  const { id: post_id } = req.params;
+  const user = get(req, 'identity');
+  try {
+    const statusCode = await delLike({
+      post_id,
+      like_owner_id: user._id.toString(),
+    });
+    if (statusCode === 200) {
+      res.status(200).json({ message: 'Like deleted successfully' });
+    } else {
+      res.status(404).json({ message: 'Like not found.' });
+    }
+  } catch (error) {
+    console.error('Error deleting like:', error);
+    res.status(400).json({
+      error: 'Invalid request...',
+    });
+  }
+};
+
+>>>>>>> main

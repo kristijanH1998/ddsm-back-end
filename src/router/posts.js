@@ -7,6 +7,7 @@ import {
   archivePost,
   deleteComment,
   deletePost,
+  deleteLike,
   updatePost,
   getPost,
   getCommsForPost,
@@ -19,6 +20,8 @@ import {
   isPostOwner,
   commentExists,
   isCommentOwner,
+  likeExists,
+  isLikeOwner,
 } from '../middlewares/posts.js';
 
 export default (router) => {
@@ -46,7 +49,6 @@ export default (router) => {
     isCommentOwner,
     deleteComment
   );
-  router.delete('/posts/:id/comment', isAuthenticated, deleteComment);
   router.delete(
     '/posts/:id/delete',
     isAuthenticated,
@@ -62,6 +64,7 @@ export default (router) => {
     updatePost
   );
   router.get('/posts/:id', isAuthenticated, postExists, getPost);
+<<<<<<< HEAD
   router.get('/posts/:id/likeNum', isAuthenticated, postExists, getPostLikeCount);
   router.get('/posts/:id/:lim/:step/likes', isAuthenticated, postExists, getLikesForPost);
   router.get('/posts/:id/:lim/:step/allComments', 
@@ -70,4 +73,9 @@ export default (router) => {
     getCommsForPost
   );
   router.post('/posts/:id/like', isAuthenticated, postExists, createLike);
+=======
+  router.get('/posts/:id/likes', isAuthenticated, postExists, getPostLikeCount);
+  router.post('/posts/:id/like', isAuthenticated, postExists, createLike);
+  router.delete('/posts/:id/delLike', isAuthenticated, postExists, deleteLike);
+>>>>>>> main
 };
