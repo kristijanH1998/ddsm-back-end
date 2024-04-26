@@ -22,10 +22,6 @@ const postSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  post_likes: {
-    type: [String],
-    default: undefined,
-  },
   post_comment_count: {
     type: Number,
     default: 0,
@@ -147,6 +143,10 @@ export const LikeModel = mongoose.model('Like', likeSchema);
 export const getLikeCountForPost = async (id) => {
   return PostsModel.find({ _id: id }, { post_like_count: 1 });
 };
+
+export const getPostLikes = async (postId, lim, step) => {
+  return LikeModel.find({"post_id": postId}).skip(step).limit(lim);
+}
 
 export const createNewLike = async (values) => {
   const { post_id, like_owner_id } = values;
