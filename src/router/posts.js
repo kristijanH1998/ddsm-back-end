@@ -12,6 +12,7 @@ import {
   getPost,
   getCommsForPost,
   unarchivePost,
+  getPostLikeCount,
   getLikesForPost,
 } from '../controllers/posts.js';
 import {
@@ -75,6 +76,7 @@ export default (router) => {
     postExists,
     getCommsForPost
   );
+  router.post('/posts/:id/like', isAuthenticated, postExists, createLike);
   router.post('/posts/:id/like', isAuthenticated, postExists, createLike);
   router.delete('/posts/:id/delLike', isAuthenticated, postExists, deleteLike);
 };
