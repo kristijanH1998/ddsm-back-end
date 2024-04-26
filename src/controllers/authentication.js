@@ -1,9 +1,6 @@
-import express from 'express';
-
 import { createUser } from '../db/users.js';
 import { generateRandomString, authentication } from '../helpers/index.js';
 import { getUserByEmail } from '../db/users.js';
-import { updateUserSessionToken } from '../db/users.js';
 
 import pkg from 'lodash';
 const { get, merge } = pkg;
