@@ -7,17 +7,21 @@ import {
   archivePost,
   deleteComment,
   deletePost,
+  deleteLike,
   updatePost,
   getPost,
   getCommsForPost,
   unarchivePost,
   getLikesForPost,
+  getPostLikeCount,
 } from '../controllers/posts.js';
 import {
   postExists,
   isPostOwner,
   commentExists,
   isCommentOwner,
+  likeExists,
+  isLikeOwner,
 } from '../middlewares/posts.js';
 
 export default (router) => {
@@ -67,5 +71,7 @@ export default (router) => {
     postExists, 
     getCommsForPost
   );
+  router.get('/posts/:id/likes', isAuthenticated, postExists, getPostLikeCount);
   router.post('/posts/:id/like', isAuthenticated, postExists, createLike);
+  router.delete('/posts/:id/delLike', isAuthenticated, postExists, deleteLike);
 };

@@ -22,6 +22,10 @@ const postSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  post_likes: {
+    type: [String],
+    default: undefined,
+  },
   post_comment_count: {
     type: Number,
     default: 0,
@@ -53,9 +57,8 @@ export const postUpdate = async (id, values) => {
 };
 
 export const delPost = async (id) => {
-  // Delete all associated comments
   await CommentModel.deleteMany({ post_id: id });
-
+  await LikeModel.deleteMany({ post_id: id });
   return PostsModel.findByIdAndDelete(id);
 };
 
@@ -119,6 +122,10 @@ const likeSchema = new mongoose.Schema({
 
 export const LikeModel = mongoose.model('Like', likeSchema);
 
+export const getLikeCountForPost = async (id) => {
+  return PostsModel.find({"_id": id}, {post_like_count: 1});
+};
+
 export const createNewLike = async (values) => {
   const { post_id, like_owner_id } = values;
   const existingLike = await LikeModel.findOne({
@@ -142,6 +149,7 @@ export const deleteAllPosts = async (id) => {
   try {
     await PostsModel.deleteMany({ post_owner_id: id });
     await CommentModel.deleteMany({ comment_owner_id: id });
+    await LikeModel.deleteMany({ like_owner_id: id });
   } catch (error) {
     console.error('Error deleting posts and comments', error);
     throw error;
@@ -150,4 +158,23 @@ export const deleteAllPosts = async (id) => {
 
 export const getPostLikes = async (postId, lim, step) => {
   return LikeModel.find({"post_id": postId}).skip(step).limit(lim);
+}
+export const getLikeById = async (id) => {
+  return LikeModel.findById(id);
+};
+
+export const delLike = async (values) => {
+  const { post_id, like_owner_id } = values;
+  const existingLike = await LikeModel.findOne({
+    post_id,
+    like_owner_id,
+  });
+  if (!existingLike) {
+    return 404; // like not found
+  }
+  const post = await PostsModel.findById(values.post_id);
+  post.post_like_count -= 1;
+  await post.save();
+  await LikeModel.deleteOne({ _id: existingLike._id });
+  return 200; // like deleted successfully
 };
