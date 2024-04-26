@@ -87,11 +87,33 @@ const commentSchema = new mongoose.Schema({
 export const CommentModel = mongoose.model('Comment', commentSchema);
 
 export const createNewComment = async (values) => {
-  return CommentModel(values).save();
+  try {
+    const newComment = await CommentModel(values).save();
+
+    await PostsModel.findByIdAndUpdate(values.post_id, {
+      $inc: { post_comment_count: 1 },
+    });
+
+    return newComment;
+  } catch (error) {
+    console.error('Error creating comment:', error);
+    throw error;
+  }
 };
 
 export const delComment = async (id) => {
-  return CommentModel.findOneAndDelete(id);
+  try {
+    const deletedComment = await CommentModel.findOneAndDelete({ _id: id });
+    if (deletedComment) {
+      await PostsModel.findByIdAndUpdate(deletedComment.post_id, {
+        $inc: { post_comment_count: -1 },
+      });
+    }
+    return deletedComment;
+  } catch (error) {
+    console.error('Error deleting comment:', error);
+    throw error;
+  } 
 };
 
 export const getCommentById = async (id) => {

@@ -49,7 +49,6 @@ export default (router) => {
     isCommentOwner,
     deleteComment
   );
-  router.delete('/posts/:id/comment', isAuthenticated, deleteComment);
   router.delete(
     '/posts/:id/delete',
     isAuthenticated,

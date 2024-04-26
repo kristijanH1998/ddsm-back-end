@@ -96,7 +96,7 @@ export const createComment = async (req, res) => {
 export const deleteComment = async (req, res) => {
   try {
     const comment = get(req, 'comment_identity');
-    delComment(comment._id);
+    await delComment(comment._id);
     return res.sendStatus(200);
   } catch {
     res.sendStatus(500);
