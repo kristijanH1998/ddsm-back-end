@@ -116,13 +116,10 @@ export const getCommentById = async (id) => {
   return CommentModel.findById(id);
 };
 
-<<<<<<< HEAD
 export const getCommentsForPost = async (postId, lim, step) => {
   return CommentModel.find({"post_id": postId}).skip(step).limit(lim);
 };
 
-=======
->>>>>>> main
 // schema for creating like
 const likeSchema = new mongoose.Schema({
   post_id: {
@@ -147,13 +144,10 @@ export const getLikeCountForPost = async (id) => {
   return PostsModel.find({"_id": id}, {post_like_count: 1});
 };
 
-<<<<<<< HEAD
 export const getPostLikes = async (postId, lim, step) => {
   return LikeModel.find({"post_id": postId}).skip(step).limit(lim);
 }
 
-=======
->>>>>>> main
 export const createNewLike = async (values) => {
   const { post_id, like_owner_id } = values;
   const existingLike = await LikeModel.findOne({
@@ -183,8 +177,6 @@ export const deleteAllPosts = async (id) => {
     throw error;
   }
 };
-<<<<<<< HEAD
-=======
 
 export const getLikeById = async (id) => {
   return LikeModel.findById(id);
@@ -205,4 +197,3 @@ export const delLike = async (values) => {
   await LikeModel.deleteOne({ _id: existingLike._id });
   return 200; // like deleted successfully
 };
->>>>>>> main

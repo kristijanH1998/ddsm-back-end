@@ -157,7 +157,6 @@ export const getPostLikeCount = async (req, res) => {
   }
 }
 
-<<<<<<< HEAD
 export const getLikesForPost = async(req, res) => {
   try {
     const post_id = req.params.id;
@@ -191,8 +190,6 @@ export const getCommsForPost = async (req, res) => {
   }
 };
 
-=======
->>>>>>> main
 export const createLike = async (req, res) => {
   const { id: post_id } = req.params;
   const user = get(req, 'identity');
@@ -213,8 +210,6 @@ export const createLike = async (req, res) => {
     });
   }
 };
-<<<<<<< HEAD
-=======
 
 export const deleteLike = async (req, res) => {
   const { id: post_id } = req.params;
@@ -237,4 +232,3 @@ export const deleteLike = async (req, res) => {
   }
 };
 
->>>>>>> main
