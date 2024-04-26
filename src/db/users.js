@@ -131,3 +131,23 @@ export const unarchiveProfile = async (id) => {
   user.profile_is_archived = false;
   return user.save();
 };
+
+export const getUsernamesAndPics = async (reactions) =>  {
+  const users = new Array();
+  if(reactions.type == 'comments'){
+    reactions.content.forEach(comment => {
+      users.push(comment.comment_owner_id);
+    })
+  } else {
+    reactions.content.forEach(like => {
+      users.push(like.like_owner_id);
+    })
+  }
+  const usernamesAndPics = Array();
+  for(const user of users) {
+    const info = await UserModel.findById(user.toString());
+    usernamesAndPics.push({username: info.username, profile_pic: info.user_info.profile_picture,
+      first_name: info.user_info.first_name, last_name: info.user_info.last_name});
+  }
+  return usernamesAndPics;
+};

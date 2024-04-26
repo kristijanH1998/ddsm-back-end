@@ -10,8 +10,9 @@ import {
   deleteLike,
   updatePost,
   getPost,
+  getCommsForPost,
   unarchivePost,
-  getPostLikeCount,
+  getLikesForPost,
 } from '../controllers/posts.js';
 import {
   postExists,
@@ -62,7 +63,18 @@ export default (router) => {
     updatePost
   );
   router.get('/posts/:id', isAuthenticated, postExists, getPost);
-  router.get('/posts/:id/likes', isAuthenticated, postExists, getPostLikeCount);
+  router.get(
+    '/posts/:id/:lim/:step/likes',
+    isAuthenticated,
+    postExists,
+    getLikesForPost
+  );
+  router.get(
+    '/posts/:id/:lim/:step/allComments',
+    isAuthenticated,
+    postExists,
+    getCommsForPost
+  );
   router.post('/posts/:id/like', isAuthenticated, postExists, createLike);
   router.delete('/posts/:id/delLike', isAuthenticated, postExists, deleteLike);
 };
