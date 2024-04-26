@@ -7,16 +7,39 @@ export const isValidRegistrationRequestBody = (req, res, next) => {
   const { first_name, last_name, username, email, password, date_of_birth } =
     req.body;
 
-  if (
-    !first_name ||
-    !last_name ||
-    !username ||
-    !email ||
-    !password ||
-    !date_of_birth
-  ) {
+  if (!first_name) {
     return res.status(400).json({
-      error: 'All fields are required...',
+      error: 'First name is required...',
+    });
+  }
+
+  if (!last_name) {
+    return res.status(400).json({
+      error: 'Last name is required...',
+    });
+  }
+
+  if (!username) {
+    return res.status(400).json({
+      error: 'Username is required...',
+    });
+  }
+
+  if (!email) {
+    return res.status(400).json({
+      error: 'Email is required...',
+    });
+  }
+
+  if (!password) {
+    return res.status(400).json({
+      error: 'Password is required...',
+    });
+  }
+
+  if (!date_of_birth) {
+    return res.status(400).json({
+      error: 'Date of birth is required...',
     });
   }
 
