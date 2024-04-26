@@ -12,7 +12,6 @@ import {
   getPost,
   getCommsForPost,
   unarchivePost,
-  getPostLikeCount,
   getLikesForPost,
 } from '../controllers/posts.js';
 import {
@@ -20,8 +19,6 @@ import {
   isPostOwner,
   commentExists,
   isCommentOwner,
-  likeExists,
-  isLikeOwner,
 } from '../middlewares/posts.js';
 
 export default (router) => {
