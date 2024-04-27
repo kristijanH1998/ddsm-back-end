@@ -22,7 +22,7 @@ const limiter = rateLimit({
 
 // Express app
 const app = express();
-// app.use(limiter);
+app.use(limiter);
 app.use(
   cors({
     origin: 'http://localhost:5173',
