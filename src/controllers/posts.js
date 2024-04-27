@@ -18,6 +18,10 @@ const { get, merge } = pkg;
 export const createPost = async (req, res) => {
   const { post_content } = req.body;
 
+  if (!post_content) {
+    return res.status(400).json({ error: 'post_content required.' });
+  }
+
   const user = get(req, 'identity');
 
   try {
