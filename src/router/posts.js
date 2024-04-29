@@ -74,6 +74,5 @@ export default (router) => {
     getCommsForPost
   );
   router.post('/posts/:id/like', isAuthenticated, postExists, createLike);
-  router.post('/posts/:id/like', isAuthenticated, postExists, createLike);
   router.delete('/posts/:id/delLike', isAuthenticated, postExists, deleteLike);
 };
