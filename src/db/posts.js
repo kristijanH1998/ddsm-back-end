@@ -17,6 +17,7 @@ const postSchema = new mongoose.Schema({
   post_is_archived: {
     type: Boolean,
     default: false,
+    select: false,
   },
   post_like_count: {
     type: Number,
@@ -32,6 +33,10 @@ export const PostsModel = mongoose.model('Post', postSchema);
 
 export const getPostById = async (id) => {
   return PostsModel.findById(id);
+};
+
+export const getPostsByUserId = async (user_id, lim, step) => {
+  return PostsModel.find({ post_owner_id: user_id }).skip(step).limit(lim);
 };
 
 export const createNewPost = async (values) => {

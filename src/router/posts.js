@@ -13,6 +13,7 @@ import {
   getCommsForPost,
   unarchivePost,
   getLikesForPost,
+  getPostByUsername,
 } from '../controllers/posts.js';
 import {
   postExists,
@@ -20,6 +21,7 @@ import {
   commentExists,
   isCommentOwner,
 } from '../middlewares/posts.js';
+import { userExistsByUsername } from '../middlewares/profile.js';
 
 export default (router) => {
   router.post('/posts', isAuthenticated, createPost);
@@ -61,6 +63,7 @@ export default (router) => {
     updatePost
   );
   router.get('/posts/:id', isAuthenticated, postExists, getPost);
+  router.get('/posts/user/:username/:lim/:step', isAuthenticated, userExistsByUsername, getPostByUsername);
   router.get(
     '/posts/:id/:lim/:step/likes',
     isAuthenticated,

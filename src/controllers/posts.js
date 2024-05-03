@@ -10,6 +10,7 @@ import {
   unarchivePost as _unarchivePost,
   postUpdate,
   getPostLikes,
+  getPostsByUserId,
 } from '../db/posts.js';
 import { getUsernamesAndPics } from '../db/users.js';
 import pkg from 'lodash';
@@ -138,6 +139,18 @@ export const getPost = async (req, res) => {
   try {
     const { post_identity } = req;
     return res.status(200).json(post_identity);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+export const getPostByUsername = async (req, res) => {
+  try {
+    const requested_user = get(req, 'requested_user_identity');
+    const { lim, step } = req.params;
+    const posts = await getPostsByUserId(requested_user._id, lim, step);
+    return res.status(200).json(posts);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Internal server error' });

@@ -1,6 +1,6 @@
 import pkg from 'lodash';
 
-import { getUserById } from '../db/users.js';
+import { getUserById, getUserByUsername } from '../db/users.js';
 
 
 const { get, merge } = pkg;
@@ -14,6 +14,22 @@ export const profileExists = async (req, res, next) => {
       return res.status(404).json({ error: 'Profile does not exist' });
 
     merge(req, { identity: profile });
+    next();
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+};
+
+export const userExistsByUsername = async (req, res, next) => {
+  try {
+    const { username } = req.params;
+    const requested_user = await getUserByUsername(username);
+
+    if (!requested_user)
+      return res.status(404).json({ error: 'User does not exist' });
+
+    merge(req, { requested_user_identity: requested_user });
     next();
   } catch (error) {
     console.error(error);

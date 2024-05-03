@@ -53,6 +53,10 @@ export const getUserByEmail = async (email, includeCredentials) => {
   return UserModel.findOne({ email });
 };
 
+export const getUserByUsername = async (username) => {
+  return UserModel.findOne({ username });
+};
+
 export const updateUserSessionToken = async (id, session_token) => {
   return UserModel.findByIdAndUpdate(id, {
     'authentication.session_token': session_token,
