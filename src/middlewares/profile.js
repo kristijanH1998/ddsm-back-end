@@ -2,7 +2,6 @@ import pkg from 'lodash';
 
 import { getUserById } from '../db/users.js';
 
-
 const { get, merge } = pkg;
 
 export const profileExists = async (req, res, next) => {
