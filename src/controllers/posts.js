@@ -11,7 +11,7 @@ import {
   postUpdate,
   getPostLikes,
 } from '../db/posts.js';
-import { getUsernamesAndPics } from '../db/users.js';
+import { getReactionAndUserData } from '../db/users.js';
 import pkg from 'lodash';
 const { get, merge } = pkg;
 
@@ -155,7 +155,7 @@ export const getLikesForPost = async (req, res) => {
       });
     }
     const likes = await getPostLikes(post_id, page);
-    const userIds = await getUsernamesAndPics({
+    const userIds = await getReactionAndUserData({
       type: 'likes',
       content: likes,
     });
@@ -176,7 +176,7 @@ export const getCommsForPost = async (req, res) => {
       });
     }
     const comments = await getCommentsForPost(post_id, page);
-    const userIds = await getUsernamesAndPics({
+    const userIds = await getReactionAndUserData({
       type: 'comments',
       content: comments,
     });
