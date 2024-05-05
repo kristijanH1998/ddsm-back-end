@@ -63,7 +63,7 @@ export default (router) => {
     updatePost
   );
   router.get('/posts/:id', isAuthenticated, postExists, getPost);
-  router.get('/posts/user/:username/:lim/:step', isAuthenticated, userExistsByUsername, getPostByUsername);
+  router.get('/posts/user/:username/:page', isAuthenticated, userExistsByUsername, getPostByUsername);
   router.get(
     '/posts/:id/:page/likes',
     isAuthenticated,
