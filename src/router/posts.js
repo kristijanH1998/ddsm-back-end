@@ -65,13 +65,13 @@ export default (router) => {
   router.get('/posts/:id', isAuthenticated, postExists, getPost);
   router.get('/posts/user/:username/:lim/:step', isAuthenticated, userExistsByUsername, getPostByUsername);
   router.get(
-    '/posts/:id/:lim/:step/likes',
+    '/posts/:id/:page/likes',
     isAuthenticated,
     postExists,
     getLikesForPost
   );
   router.get(
-    '/posts/:id/:lim/:step/allComments',
+    '/posts/:id/:page/allComments',
     isAuthenticated,
     postExists,
     getCommsForPost

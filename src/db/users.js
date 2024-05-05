@@ -136,7 +136,7 @@ export const unarchiveProfile = async (id) => {
   return user.save();
 };
 
-export const getUsernamesAndPics = async (reactions) =>  {
+export const getReactionAndUserData = async (reactions) =>  {
   const users = new Array();
   if(reactions.type == 'comments'){
     reactions.content.forEach(comment => {
@@ -147,11 +147,18 @@ export const getUsernamesAndPics = async (reactions) =>  {
       users.push(like.like_owner_id);
     })
   }
-  const usernamesAndPics = Array();
+  const reactionAndUserData = Array();
   for(const user of users) {
     const info = await UserModel.findById(user.toString());
-    usernamesAndPics.push({username: info.username, profile_pic: info.user_info.profile_picture,
+    reactionAndUserData.push({username: info.username, profile_pic: info.user_info.profile_picture,
       first_name: info.user_info.first_name, last_name: info.user_info.last_name});
   }
-  return usernamesAndPics;
+  //also fetch every comment's content and timestamp:
+  if(reactions.type == 'comments'){
+    for(let i = 0; i < reactionAndUserData.length; i++) {
+      reactionAndUserData[i] = {...reactionAndUserData[i], content: reactions.content[i].comment_content, 
+        timestamp: reactions.content[i].comment_timestamp}
+    }
+  }
+  return reactionAndUserData;
 };
