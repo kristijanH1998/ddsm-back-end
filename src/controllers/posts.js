@@ -150,8 +150,7 @@ export const getLikesForPost = async (req, res) => {
     const page = Number(req.params.page);
     if (!Number.isInteger(page) || page <= 0) {
       return res.status(400).json({
-        error:
-          'Page number must be integer greater than or equal to 1.',
+        error: 'Page number must be integer greater than or equal to 1.',
       });
     }
     const likes = await getPostLikes(post_id, page);
@@ -171,8 +170,7 @@ export const getCommsForPost = async (req, res) => {
     const page = Number(req.params.page);
     if (!Number.isInteger(page) || page <= 0) {
       return res.status(400).json({
-        error:
-          'Page number must be integer greater than or equal to 1.',
+        error: 'Page number must be integer greater than or equal to 1.',
       });
     }
     const comments = await getCommentsForPost(post_id, page);
