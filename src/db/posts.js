@@ -116,8 +116,10 @@ export const getCommentById = async (id) => {
   return CommentModel.findById(id);
 };
 
-export const getCommentsForPost = async (postId, lim, step) => {
-  return CommentModel.find({ post_id: postId }).skip(step).limit(lim);
+const itemsToFetch = 5;
+
+export const getCommentsForPost = async (postId, page) => {
+  return CommentModel.find({ post_id: postId }).skip((page - 1) * itemsToFetch).limit(itemsToFetch);
 };
 
 // schema for creating like
@@ -170,8 +172,8 @@ export const deleteAllPosts = async (id) => {
   }
 };
 
-export const getPostLikes = async (postId, lim, step) => {
-  return LikeModel.find({ post_id: postId }).skip(step).limit(lim);
+export const getPostLikes = async (postId, page) => {
+  return LikeModel.find({ post_id: postId }).skip((page - 1) * itemsToFetch).limit(itemsToFetch);
 };
 
 export const getLikeById = async (id) => {
