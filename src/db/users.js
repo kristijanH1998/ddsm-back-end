@@ -138,14 +138,14 @@ export const unarchiveProfile = async (id) => {
 
 export const getReactionAndUserData = async (reactions) =>  {
   const users = new Array();
-  if(reactions.type == 'comments'){
-    reactions.content.forEach(comment => {
+  if (reactions.type == 'comments') {
+    reactions.content.forEach((comment) => {
       users.push(comment.comment_owner_id);
-    })
+    });
   } else {
-    reactions.content.forEach(like => {
+    reactions.content.forEach((like) => {
       users.push(like.like_owner_id);
-    })
+    });
   }
   const reactionAndUserData = Array();
   for(const user of users) {
