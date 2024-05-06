@@ -17,6 +17,7 @@ const postSchema = new mongoose.Schema({
   post_is_archived: {
     type: Boolean,
     default: false,
+    select: false,
   },
   post_like_count: {
     type: Number,
@@ -32,6 +33,12 @@ export const PostsModel = mongoose.model('Post', postSchema);
 
 export const getPostById = async (id) => {
   return PostsModel.findById(id);
+};
+
+export const getPostsByUserId = async (user_id, page) => {
+  return PostsModel.find({ post_owner_id: user_id })
+    .skip((page - 1) * itemsToFetch)
+    .limit(itemsToFetch);
 };
 
 export const createNewPost = async (values) => {
@@ -119,7 +126,9 @@ export const getCommentById = async (id) => {
 const itemsToFetch = 5;
 
 export const getCommentsForPost = async (postId, page) => {
-  return CommentModel.find({ post_id: postId }).skip((page - 1) * itemsToFetch).limit(itemsToFetch);
+  return CommentModel.find({ post_id: postId })
+    .skip((page - 1) * itemsToFetch)
+    .limit(itemsToFetch);
 };
 
 // schema for creating like
@@ -173,7 +182,9 @@ export const deleteAllPosts = async (id) => {
 };
 
 export const getPostLikes = async (postId, page) => {
-  return LikeModel.find({ post_id: postId }).skip((page - 1) * itemsToFetch).limit(itemsToFetch);
+  return LikeModel.find({ post_id: postId })
+    .skip((page - 1) * itemsToFetch)
+    .limit(itemsToFetch);
 };
 
 export const getLikeById = async (id) => {

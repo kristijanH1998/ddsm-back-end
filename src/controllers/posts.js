@@ -10,6 +10,7 @@ import {
   unarchivePost as _unarchivePost,
   postUpdate,
   getPostLikes,
+  getPostsByUserId,
 } from '../db/posts.js';
 import { getReactionAndUserData } from '../db/users.js';
 import pkg from 'lodash';
@@ -144,14 +145,30 @@ export const getPost = async (req, res) => {
   }
 };
 
+export const getPostByUsername = async (req, res) => {
+  try {
+    const requested_user = get(req, 'requested_user_identity');
+    const page = Number(req.params.page);
+    if (!Number.isInteger(page) || page <= 0) {
+      return res.status(400).json({
+        error: 'Page number must be integer greater than or equal to 1.',
+      });
+    }
+    const posts = await getPostsByUserId(requested_user._id, page);
+    return res.status(200).json(posts);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 export const getLikesForPost = async (req, res) => {
   try {
     const post_id = req.params.id;
     const page = Number(req.params.page);
     if (!Number.isInteger(page) || page <= 0) {
       return res.status(400).json({
-        error:
-          'Page number must be integer greater than or equal to 1.',
+        error: 'Page number must be integer greater than or equal to 1.',
       });
     }
     const likes = await getPostLikes(post_id, page);
@@ -171,8 +188,7 @@ export const getCommsForPost = async (req, res) => {
     const page = Number(req.params.page);
     if (!Number.isInteger(page) || page <= 0) {
       return res.status(400).json({
-        error:
-          'Page number must be integer greater than or equal to 1.',
+        error: 'Page number must be integer greater than or equal to 1.',
       });
     }
     const comments = await getCommentsForPost(post_id, page);

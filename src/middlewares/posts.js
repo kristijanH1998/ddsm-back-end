@@ -18,7 +18,7 @@ export const postExists = async (req, res, next) => {
     merge(req, { post_identity: post });
     next();
   } catch (error) {
-    console.error(error);
+    console.error(`(postExists) ${error}`);
     res.sendStatus(500);
   }
 };
@@ -34,7 +34,7 @@ export const isPostOwner = (req, res, next) => {
 
     next();
   } catch (error) {
-    console.error(error);
+    console.error(`(isPostOwner) ${error}`);
     return res.sendStatus(500);
   }
 };
