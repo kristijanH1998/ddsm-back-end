@@ -260,7 +260,7 @@ export const getFeed = async (req, res) => {
 
     const formattedPosts = posts.map((post) => ({
       username: post.post_owner_id.username,
-      profilePic: post.post_owner_id.profilePic,
+      profilePic: post.post_owner_id.user_info.profile_picture,
       timestamp: post.post_timestamp,
       likeCount: post.post_like_count,
       commentCount: post.post_comment_count,
