@@ -14,6 +14,7 @@ import {
   unarchivePost,
   getLikesForPost,
   getPostByUsername,
+  getFeed,
 } from '../controllers/posts.js';
 import {
   postExists,
@@ -78,4 +79,5 @@ export default (router) => {
   );
   router.post('/posts/:id/like', isAuthenticated, postExists, createLike);
   router.delete('/posts/:id/delLike', isAuthenticated, postExists, deleteLike);
+  router.get('/posts/feed', isAuthenticated, getFeed);
 };

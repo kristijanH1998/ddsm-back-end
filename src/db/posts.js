@@ -206,3 +206,21 @@ export const delLike = async (values) => {
   await LikeModel.deleteOne({ _id: existingLike._id });
   return 200; // like deleted successfully
 };
+
+export const fetchPosts = async () => {
+  try {
+    // Fetch the posts sorted by post_timestamp in descending order
+    const posts = await PostsModel.find()
+      .sort({ post_timestamp: -1 }) // -1 for descending order
+      .populate({
+        path: 'post_owner_id',
+        select: 'username profile_picture', // Use the correct field name
+      });
+
+    return posts;
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    throw error;
+  }
+};
+

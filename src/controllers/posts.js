@@ -11,6 +11,7 @@ import {
   postUpdate,
   getPostLikes,
   getPostsByUserId,
+  fetchPosts,
 } from '../db/posts.js';
 import { getReactionAndUserData } from '../db/users.js';
 import pkg from 'lodash';
@@ -242,5 +243,27 @@ export const deleteLike = async (req, res) => {
     res.status(400).json({
       error: 'Invalid request...',
     });
+  }
+};
+
+export const getFeed = async (req, res) => {
+  try {
+    console.log('Fetching feed...');
+    const posts = await fetchPosts();
+
+    const formattedPosts = posts.map((post) => ({
+      username: post.post_owner_id.username,
+      profilePic: post.post_owner_id.profilePic,
+      timestamp: post.post_timestamp,
+      likeCount: post.post_like_count,
+      commentCount: post.post_comment_count,
+      content: post.post_content,
+    }));
+
+    console.log('Formatted posts:', formattedPosts);
+    res.json(formattedPosts);
+  } catch (error) {
+    console.error('Error fetching feed:', error);
+    res.status(500).send('Server Error');
   }
 };
