@@ -248,7 +248,6 @@ export const deleteLike = async (req, res) => {
 
 export const getFeed = async (req, res) => {
   try {
-    console.log('Fetching feed...');
     const page = Number(req.params.page);
 
     if (!Number.isInteger(page) || page <= 0) {
@@ -268,7 +267,6 @@ export const getFeed = async (req, res) => {
       content: post.post_content,
     }));
 
-    console.log('Formatted posts:', formattedPosts);
     res.json(formattedPosts);
   } catch (error) {
     console.error('Error fetching feed:', error);
