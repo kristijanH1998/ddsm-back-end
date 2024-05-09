@@ -207,10 +207,12 @@ export const delLike = async (values) => {
   return 200; // like deleted successfully
 };
 
-export const fetchPosts = async () => {
+export const fetchPosts = async (page) => {
   try {
     // Fetch the posts sorted by post_timestamp in descending order
     const posts = await PostsModel.find()
+      .skip((page - 1) * itemsToFetch)
+      .limit(itemsToFetch)
       .sort({ post_timestamp: -1 }) // -1 for descending order
       .populate({
         path: 'post_owner_id',
@@ -223,4 +225,3 @@ export const fetchPosts = async () => {
     throw error;
   }
 };
-

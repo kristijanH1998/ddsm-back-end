@@ -79,5 +79,5 @@ export default (router) => {
   );
   router.post('/posts/:id/like', isAuthenticated, postExists, createLike);
   router.delete('/posts/:id/delLike', isAuthenticated, postExists, deleteLike);
-  router.get('/feed', isAuthenticated, getFeed);
+  router.get('/feed/:page', isAuthenticated, getFeed);
 };

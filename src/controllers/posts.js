@@ -249,7 +249,15 @@ export const deleteLike = async (req, res) => {
 export const getFeed = async (req, res) => {
   try {
     console.log('Fetching feed...');
-    const posts = await fetchPosts();
+    const page = Number(req.params.page);
+
+    if (!Number.isInteger(page) || page <= 0) {
+      return res.status(400).json({
+        error: 'Page number must be integer greater than or equal to 1.',
+      });
+    }
+
+    const posts = await fetchPosts(page);
 
     const formattedPosts = posts.map((post) => ({
       username: post.post_owner_id.username,
