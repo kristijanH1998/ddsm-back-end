@@ -216,7 +216,7 @@ export const fetchPosts = async (page) => {
       .sort({ post_timestamp: -1 }) // -1 for descending order
       .populate({
         path: 'post_owner_id',
-        select: 'username profile_picture', // Use the correct field name
+        select: 'username user_info.profile_picture', // Use the correct field name
       });
 
     return posts;
