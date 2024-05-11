@@ -43,11 +43,7 @@ export const getUserById = async (id, includeCredentials) => {
       'authentication.password authentication.salt'
     );
   }
-  let profilePic = await UserModel.findById(id).select('user_info.profile_picture');
-  profilePic = profilePic.user_info.profile_picture.toString('base64');
-  let userObj = await UserModel.findById(id).select('-user_info.profile_picture');
-  userObj.user_info.profile_picture_base64 = profilePic;
-  return userObj;
+  return UserModel.findById(id);
 };
 
 export const getUserByEmail = async (email, includeCredentials) => {
@@ -169,3 +165,11 @@ export const getReactionAndUserData = async (reactions) =>  {
   }
   return reactionAndUserData;
 };
+
+export const getProfilePicture = async (username) => {
+  let profilePic = await UserModel.findOne({ username }).select('user_info.profile_picture');
+  profilePic = profilePic.user_info.profile_picture.toString('base64');
+  return profilePic;
+}
+
+  

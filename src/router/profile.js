@@ -6,15 +6,18 @@ import {
   getProfile,
   deleteProfile,
   unarchiveProfile,
+  getProfileImage,
 } from '../controllers/profile.js';
 import {
   isProfileOwner,
   checkUpdateProfilePayload,
   getFullProfile,
 } from '../middlewares/profile.js';
+import { userExistsByUsername } from '../middlewares/profile.js';
 
 export default (router) => {
   router.get('/profile', isAuthenticated, getFullProfile, getProfile);
+  router.get('/profile/picture/:username', isAuthenticated, userExistsByUsername, getProfileImage);
   router.put(
     '/profile',
     isAuthenticated,
