@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import {UserModel} from './users.js';
 
 const postSchema = new mongoose.Schema({
   post_owner_id: {
@@ -210,13 +211,26 @@ export const delLike = async (values) => {
 export const fetchPosts = async (page) => {
   try {
     // Fetch the posts sorted by post_timestamp in descending order
+    
+    
+
+    let profilePics = await UserModel.find({}).select('user_info.profile_picture -_id');
+    profilePics.forEach(async picture => {      
+      for (const user of UserModel.find({})) {
+        user.user_info.profile_picture_base64 = picture.user_info.profile_picture.toString('base64');
+        // await user.save();
+      }
+      
+    })
+    
+
     const posts = await PostsModel.find()
       .skip((page - 1) * itemsToFetch)
       .limit(itemsToFetch)
       .sort({ post_timestamp: -1 }) // -1 for descending order
       .populate({
         path: 'post_owner_id',
-        select: 'username user_info.profile_picture', // Use the correct field name
+        select: 'username user_info.profile_picture_base64', // Use the correct field name
       });
 
     return posts;
