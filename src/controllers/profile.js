@@ -3,7 +3,7 @@ import {
   archiveProfile as _archiveProfile,
   deleteProfile as _deleteProfile,
   unarchiveProfile as _unarchiveProfile,
-  getProfilePicture,
+  getUserInfo,
 } from '../db/users.js';
 import pkg from 'lodash';
 const { get, merge } = pkg;
@@ -82,11 +82,12 @@ export const unarchiveProfile = async (req, res) => {
   }
 };
 
-export const getProfileImage = async (req, res) => {
+export const getUserPublicInfo = async (req, res) => {
   try {
     const username = req.params.username;
-    const pic = await getProfilePicture(username);
-    return res.status(200).json({ profile_image: pic });
+    const info = await getUserInfo(username);
+    let infoClone = {...info, 'profile_picture': info.profile_picture.toString('base64')}
+    return res.status(200).json(infoClone);
   } catch (error){
     console.error('Error fetching profile picture: ', error);
     return res.sendStatus(500);

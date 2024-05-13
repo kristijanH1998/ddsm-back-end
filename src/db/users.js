@@ -162,10 +162,9 @@ export const getReactionAndUserData = async (reactions) =>  {
   return reactionAndUserData;
 };
 
-export const getProfilePicture = async (username) => {
-  let profilePic = await UserModel.findOne({ username }).select('user_info.profile_picture');
-  profilePic = profilePic.user_info.profile_picture.toString('base64');
-  return profilePic;
+export const getUserInfo = async (username) => {
+  let userData = await UserModel.findOne({ username }).select('user_info -_id');  
+  return userData.user_info;
 }
 
   
