@@ -86,7 +86,12 @@ export const getUserPublicInfo = async (req, res) => {
   try {
     const username = req.params.username;
     const info = await getUserInfo(username);
-    let infoClone = {...info, 'profile_picture': info.profile_picture.toString('base64')}
+    let infoClone = {};
+    if(info.profile_picture) {
+      infoClone = {...info, 'profile_picture': info.profile_picture.toString('base64')};
+    } else {
+      infoClone = {...info};
+    };
     return res.status(200).json(infoClone);
   } catch (error){
     console.error('Error fetching profile picture: ', error);
