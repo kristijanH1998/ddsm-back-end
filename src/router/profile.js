@@ -17,7 +17,7 @@ import { userExistsByUsername } from '../middlewares/profile.js';
 
 export default (router) => {
   router.get('/profile', isAuthenticated, getFullProfile, getProfile);
-  router.get('/user/profile/:username', isAuthenticated, userExistsByUsername, getUserPublicInfo);
+  router.get('/profile/user/:username', isAuthenticated, userExistsByUsername, getUserPublicInfo);
   router.put(
     '/profile',
     isAuthenticated,
