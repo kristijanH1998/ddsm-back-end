@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import {UserModel} from './users.js';
 
 const postSchema = new mongoose.Schema({
   post_owner_id: {
@@ -205,4 +206,22 @@ export const delLike = async (values) => {
   await post.save();
   await LikeModel.deleteOne({ _id: existingLike._id });
   return 200; // like deleted successfully
+};
+
+export const fetchPosts = async (page) => {
+  try {
+    // Fetch the posts sorted by post_timestamp in descending order
+    const posts = await PostsModel.find()
+      .skip((page - 1) * itemsToFetch)
+      .limit(itemsToFetch)
+      .sort({ post_timestamp: -1 }) // -1 for descending order
+      .populate({
+        path: 'post_owner_id',
+        select: 'username user_info.profile_picture', // Use the correct field name
+      });
+    return posts;
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    throw error;
+  }
 };
