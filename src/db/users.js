@@ -39,7 +39,6 @@ export const getUserById = async (id, includeCredentials) => {
       'authentication.password authentication.salt'
     );
   }
-
   return UserModel.findById(id);
 };
 
@@ -162,3 +161,10 @@ export const getReactionAndUserData = async (reactions) =>  {
   }
   return reactionAndUserData;
 };
+
+export const getUserInfo = async (username) => {
+  let userData = await UserModel.findOne({ username }).select('user_info -_id');  
+  return userData.user_info;
+}
+
+  
