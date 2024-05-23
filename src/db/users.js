@@ -150,7 +150,7 @@ export const getReactionAndUserData = async (reactions) =>  {
   const reactionAndUserData = Array();
   for(const user of users) {
     const info = await UserModel.findById(user.toString());
-    reactionAndUserData.push({username: info.username, profile_pic: info.user_info.profile_picture.toString('base64'),
+    reactionAndUserData.push({username: info.username, profile_pic: info.user_info.profile_picture ? info.user_info.profile_picture.toString('base64') : null,
       first_name: info.user_info.first_name, last_name: info.user_info.last_name});
   }
   //also fetch every comment's content and timestamp:
