@@ -167,4 +167,15 @@ export const getUserInfo = async (username) => {
   return userData.user_info;
 }
 
+export const getUserList = async () => {
+  try {
+    const users = await UserModel.find()
+      .select('username -_id user_info.profile_picture')
+    return users;
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    throw error;
+  }
+}
+
   

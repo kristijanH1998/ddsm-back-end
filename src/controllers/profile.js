@@ -4,6 +4,7 @@ import {
   deleteProfile as _deleteProfile,
   unarchiveProfile as _unarchiveProfile,
   getUserInfo,
+  getUserList,
 } from '../db/users.js';
 import pkg from 'lodash';
 const { get, merge } = pkg;
@@ -96,5 +97,19 @@ export const getUserPublicInfo = async (req, res) => {
   } catch (error){
     console.error('Error fetching profile picture: ', error);
     return res.sendStatus(500);
+  }
+};
+
+export const getUsers = async (req, res) => {
+  try {
+    const users = await getUserList();
+    const formattedUsers = users.map((user) => ({
+      username: user.username,
+      profilePic: user.user_info.profile_picture ? user.user_info.profile_picture.toString('base64') : user.user_info.profile_picture,
+    }));
+    return res.json(formattedUsers);
+  } catch (error) {
+    console.error('Error fetching user list:', error);
+    res.status(500).send('Server Error');
   }
 };
