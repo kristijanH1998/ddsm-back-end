@@ -3,6 +3,7 @@ import {
   archiveProfile as _archiveProfile,
   deleteProfile as _deleteProfile,
   unarchiveProfile as _unarchiveProfile,
+  getUserInfo,
 } from '../db/users.js';
 import pkg from 'lodash';
 const { get, merge } = pkg;
@@ -81,8 +82,25 @@ export const unarchiveProfile = async (req, res) => {
     const user = get(req, 'identity');
     await _unarchiveProfile(user._id);
     res.sendStatus(200);
-  } catch {
+  } catch (error) {
     console.error('Error trying to unarchive profile: ', error);
+    return res.sendStatus(500);
+  }
+};
+
+export const getUserPublicInfo = async (req, res) => {
+  try {
+    const username = req.params.username;
+    const info = await getUserInfo(username);
+    let infoClone = {};
+    if(info.profile_picture) {
+      infoClone = {...info, 'profile_picture': info.profile_picture.toString('base64')};
+    } else {
+      infoClone = {...info};
+    };
+    return res.status(200).json(infoClone);
+  } catch (error){
+    console.error('Error fetching profile picture: ', error);
     return res.sendStatus(500);
   }
 };

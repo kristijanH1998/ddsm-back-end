@@ -11,6 +11,7 @@ import {
   postUpdate,
   getPostLikes,
   getPostsByUserId,
+  fetchPosts,
 } from '../db/posts.js';
 import { getReactionAndUserData } from '../db/users.js';
 import pkg from 'lodash';
@@ -242,5 +243,33 @@ export const deleteLike = async (req, res) => {
     res.status(400).json({
       error: 'Invalid request...',
     });
+  }
+};
+
+export const getFeed = async (req, res) => {
+  try {
+    const page = Number(req.params.page);
+
+    if (!Number.isInteger(page) || page <= 0) {
+      return res.status(400).json({
+        error: 'Page number must be integer greater than or equal to 1.',
+      });
+    }
+
+    const posts = await fetchPosts(page);
+
+    const formattedPosts = posts.map((post) => ({
+      username: post.post_owner_id.username,
+      profilePic: post.post_owner_id.user_info.profile_picture ? post.post_owner_id.user_info.profile_picture.toString('base64') : post.post_owner_id.user_info.profile_picture,
+      timestamp: post.post_timestamp,
+      likeCount: post.post_like_count,
+      commentCount: post.post_comment_count,
+      content: post.post_content,
+    }));
+
+    res.json(formattedPosts);
+  } catch (error) {
+    console.error('Error fetching feed:', error);
+    res.status(500).send('Server Error');
   }
 };
