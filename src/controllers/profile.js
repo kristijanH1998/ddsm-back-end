@@ -11,9 +11,15 @@ const { get, merge } = pkg;
 
 export const getProfile = async (req, res) => {
   const profile = get(req, 'identity');
-
   try {
-    return res.status(200).json({ profile });
+    return res.status(200).json({
+      user_info: {...profile.user_info, profile_picture: profile.user_info.profile_picture ? profile.user_info.profile_picture.toString('base64') : null},
+      _id: profile._id,
+      username: profile.username,
+      email: profile.email,
+      profile_is_archived: profile.profile_is_archived,
+      __v: profile.__v,
+    });
   } catch (error) {
     console.error('Error updating profile: ', error);
     return res.status(500).json({
