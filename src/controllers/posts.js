@@ -265,6 +265,7 @@ export const getFeed = async (req, res) => {
       likeCount: post.post_like_count,
       commentCount: post.post_comment_count,
       content: post.post_content,
+      id: post._id,
     }));
 
     res.json(formattedPosts);
