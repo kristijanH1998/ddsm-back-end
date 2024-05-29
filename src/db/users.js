@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+import { deleteAllPosts } from './posts.js';
+
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
@@ -12,10 +14,14 @@ const userSchema = new mongoose.Schema({
     country: { type: String },
     first_name: { type: String, required: true },
     last_name: { type: String, required: true },
-    date_of_birth: { type: Date, required: true },
-    profile_picture: { type: Buffer }, // Assuming profile_picture is stored as binary data
+    date_of_birth: { type: Date },
+    profile_picture: { type: Buffer }, // Assuming profile_picture is stored as binary data, after being converted from base64 ASCII string
     datetime_created: { type: Date, default: Date.now },
     biography: { type: String },
+  },
+  profile_is_archived: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -27,6 +33,15 @@ export const createUser = async (values) => {
     .then((user) => user.toObject());
 };
 
+export const getUserById = async (id, includeCredentials) => {
+  if (includeCredentials) {
+    return UserModel.findById(id).select(
+      'authentication.password authentication.salt'
+    );
+  }
+  return UserModel.findById(id);
+};
+
 export const getUserByEmail = async (email, includeCredentials) => {
   if (includeCredentials) {
     return UserModel.findOne({ email }).select(
@@ -35,6 +50,10 @@ export const getUserByEmail = async (email, includeCredentials) => {
   }
 
   return UserModel.findOne({ email });
+};
+
+export const getUserByUsername = async (username) => {
+  return UserModel.findOne({ username });
 };
 
 export const updateUserSessionToken = async (id, session_token) => {
@@ -48,3 +67,115 @@ export const getUserBySessionToken = async (session_token) => {
     'authentication.session_token': session_token,
   }).select('authentication.salt');
 };
+
+export const updateUserProfile = async (id, updates) => {
+  const user = await getUserById(id, false);
+
+  if (!user) throw new Error('User not found');
+
+  if (updates.username) {
+    user.username = updates.username;
+  }
+  if (updates.email) {
+    user.email = updates.email;
+  }
+
+  if (updates.country) {
+    user.user_info.country = updates.country;
+  }
+  if (updates.first_name) {
+    user.user_info.first_name = updates.first_name;
+  }
+  if (updates.last_name) {
+    user.user_info.last_name = updates.last_name;
+  }
+  if (updates.date_of_birth) {
+    user.user_info.date_of_birth = updates.date_of_birth;
+  }
+  if (updates.profile_picture) {
+    user.user_info.profile_picture = updates.profile_picture;
+  }
+  if (updates.biography) {
+    user.user_info.biography = updates.biography;
+  }
+
+  return await user.save();
+};
+
+export const archiveProfile = async (id) => {
+  const user = await getUserById(id, false);
+  user.profile_is_archived = true;
+  return user.save();
+};
+
+export const deleteProfile = async (id) => {
+  const user = await UserModel.findById(id);
+  if (!user.profile_is_archived) {
+    return {
+      status: 400,
+      message: 'Cannot delete a profile that is not archived',
+    };
+  }
+  try {
+    await deleteAllPosts(id);
+    await UserModel.deleteOne({ _id: id });
+    return { status: 200 };
+  } catch (error) {
+    console.error('Error deleting profile:', error);
+    return {
+      status: 500,
+      message: 'Error deleting profile',
+    };
+  }
+};
+
+export const unarchiveProfile = async (id) => {
+  const user = await getUserById(id, false);
+  user.profile_is_archived = false;
+  return user.save();
+};
+
+export const getReactionAndUserData = async (reactions) =>  {
+  const users = new Array();
+  if (reactions.type == 'comments') {
+    reactions.content.forEach((comment) => {
+      users.push(comment.comment_owner_id);
+    });
+  } else {
+    reactions.content.forEach((like) => {
+      users.push(like.like_owner_id);
+    });
+  }
+  const reactionAndUserData = Array();
+  for(const user of users) {
+    const info = await UserModel.findById(user.toString());
+    reactionAndUserData.push({username: info.username, profile_pic: info.user_info.profile_picture ? info.user_info.profile_picture.toString('base64') : null,
+      first_name: info.user_info.first_name, last_name: info.user_info.last_name});
+  }
+  //also fetch every comment's content and timestamp:
+  if(reactions.type == 'comments'){
+    for(let i = 0; i < reactionAndUserData.length; i++) {
+      reactionAndUserData[i] = {...reactionAndUserData[i], content: reactions.content[i].comment_content, 
+        timestamp: reactions.content[i].comment_timestamp}
+    }
+  }
+  return reactionAndUserData;
+};
+
+export const getUserInfo = async (username) => {
+  let userData = await UserModel.findOne({ username }).select('user_info -_id');  
+  return userData.user_info;
+}
+
+export const getUserList = async () => {
+  try {
+    const users = await UserModel.find()
+      .select('username -_id user_info.profile_picture')
+    return users;
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    throw error;
+  }
+}
+
+  
