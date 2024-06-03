@@ -51,7 +51,6 @@ export const getFullProfile = async (req, res, next) => {
 
 export const checkUpdateProfilePayload = (req, res, next) => {
   const {
-    username,
     date_of_birth,
     country,
     first_name,
@@ -62,7 +61,6 @@ export const checkUpdateProfilePayload = (req, res, next) => {
 
   try {
     if (
-      !username &&
       !date_of_birth &&
       !country &&
       !first_name &&
@@ -73,8 +71,7 @@ export const checkUpdateProfilePayload = (req, res, next) => {
       return res.status(400).json({ error: 'No data supplied' });
     }
     let newProfileData = {};
-    
-    if (username !== undefined) newProfileData.username = username;
+
     if (date_of_birth !== undefined) newProfileData.date_of_birth = date_of_birth;
     if (country !== undefined) newProfileData.country = country;
     if (first_name !== undefined) newProfileData.first_name = first_name;
