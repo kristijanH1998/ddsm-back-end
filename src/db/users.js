@@ -156,7 +156,7 @@ export const getReactionAndUserData = async (reactions) =>  {
   if(reactions.type == 'comments'){
     for(let i = 0; i < reactionAndUserData.length; i++) {
       reactionAndUserData[i] = {...reactionAndUserData[i], content: reactions.content[i].comment_content, 
-        timestamp: reactions.content[i].comment_timestamp}
+        timestamp: reactions.content[i].comment_timestamp, _id: reactions.content[i]._id}
     }
   }
   return reactionAndUserData;
