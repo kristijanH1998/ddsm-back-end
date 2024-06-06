@@ -172,7 +172,22 @@ export const createNewLike = async (values) => {
 };
 
 export const deleteAllPosts = async (id) => {
+  let commentList = [];
+  let likeList = [];
   try {
+    commentList = await CommentModel.find({ comment_owner_id: id });
+    commentList.forEach(async comment => {
+      const targetPost = await PostsModel.find({_id: comment.post_id})
+      targetPost[0].post_comment_count -= 1;
+      await targetPost[0].save();
+
+    });
+    likeList = await LikeModel.find({ like_owner_id: id });
+    likeList.forEach(async like => {
+      const targetPost = await PostsModel.find({_id: like.post_id})
+      targetPost[0].post_like_count -= 1;
+      await targetPost[0].save();
+    });
     await PostsModel.deleteMany({ post_owner_id: id });
     await CommentModel.deleteMany({ comment_owner_id: id });
     await LikeModel.deleteMany({ like_owner_id: id });
