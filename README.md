@@ -30,12 +30,22 @@ DuckPond - internship group project for Bay Valley Tech
 * An extra step that has also been taken was containerization of the project with Docker, to achieve OS-level virtualization and make it easier for end users to test DuckPond without having to install a lot of environment dependencies, packages, libraries, etc.
 
 #### Challenges faced during development
+* Prior to starting this project, I was not very much experienced in backend development and using MERN technology stack, more specifically using Express as server-side framework, Node as a JavaScript runtime environment (server platform), and MongoDB as database. I only had knowledge of React for frontend development. Furthermore, MongoDB is a NoSQL database system, and before this project I only worked in SQL-type databases and database management systems for those (I had experience with MySQL). The tools used for backend development in MERN stack, like MongoDB Compass, API test tools (Insomnia, Postman), and Hackolade were new to me as well. Therefore, I needed several weeks of both research and hands-on practice to familiarize myself with this software stack, but I managed to catch up pretty fast with the rest of the team
+* The integration of the frontend code to the backend side of the application was by far the most time-consuming and difficult phase of building DuckPond, as it exposed bugs in both parts of the project that were previously not detected nor found to possibly cause issues in the future. This meant going back to backend code and making changes to it (introducing new endpoints or editing existing ones, fixing errors with data retrieved by endpoints, etc.), and sometimes editing and upgrading already finished and tested frontend code when it would be missing certain elements or React components
+* Axios library used for sending HTTP requests from the frontend to the backend server was initally causing CORS errors and failed to fetch data from the database. This issue required several days of research and debugging followed by several days of trial-and-error attempts to make all endpoint types return desired data from the database
+* Forgot Password functionality has not yet been implemented due to Mailgun API and Gmail API not producing expected results, since these solutions required both the sender and recipient of email messages to change certain email account security settings. Gmail did not work as desired with Nodemailer module for Node.js. These problems caused our application to, as of the time of writing this description, be missing Forgot Password service for resetting user password       
 
 #### Features to be implemented in the future
+* DuckPond would be a better social media app solution if it had a digital storage area for messages (Inbox), enabling users to receive messages from and send messages to other users. This is a feature I hope to work on in the future
+* Forgot Password functionality with password reset option would improve DuckPond's user experience as it would allow them to reset their password in case they lost/forgot it. This would require being able to securely send email messages to users with confirmation code and potentially other confidential information. There are numerous solutions for this in existence on the Web, but all attempts so far failed to achieve smooth, fast, and secure password reset process. I hope to implement this in the future
+* DuckPond exhibits some minor CSS design bugs on the mobile phone screen view (for example, trash button and edit button on Post component are not positioned correctly), which will need to be fixed going forward
+* Hosting DuckPond on AWS Cloud would be a great addition to the project, since it would allow anybody interested in testing this application to simply run it in their browser without having to install all the packages, dependencies, tools, and other components for running project files
 
 #### Motivation
+* I was assigned this project while participating in the Bay Valley Tech's internship program, and I was looking forward to it because I needed more experience in full-stack application development. I also wanted to add new technologies to my portfolio stack, like MongoDB, Express, Node.js, Bulma, Postman, and others, and this project was a great opportunity for me to learn them
 
 #### Things I learned
+
 
 ## How to Run the Project 
 
