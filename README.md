@@ -45,7 +45,9 @@ DuckPond - internship group project for Bay Valley Tech
 * I was assigned this project while participating in the Bay Valley Tech's internship program, and I was looking forward to it because I needed more experience in full-stack application development. I also wanted to add new technologies to my portfolio stack, like MongoDB, Express, Node.js, Bulma, Postman, and others, and this project was a great opportunity for me to learn them
 
 #### Things I learned
-
+* This almost 3 months long project taught me that good methodology, team organization, and effective leadership are crucial components of any software engineering process. At times our team struggled with these factors, and it resulted in longer development time, harder debugging period and integration process requiring longer time to finish than initially expected
+* I learned that even if one is not very familiar with certain set of technologies, they can still be productive in a team project that requires knowledge of those technologies if they put enough effort in learning them by both reading documentation and other study materials, and being willing to immerse themselves in practical work even if initial attempts are filled with setbacks. The most important thing is to never give up, learn from mistakes, and keep trying without thinking about results
+* Lastly, I realized that medium to large scale software projects like DuckPond are very time consuming and in order to be completed within a couple of months, they should be performed by teams of developers and engineers. The same goes for any larger full-stack application. Perhaps such projects can be finished by a single person, but that process would take considerably more time than team work would require to deliver the product and finalize all the steps in the process
 
 ## How to Run the Project 
 
