@@ -50,6 +50,18 @@ DuckPond - internship group project for Bay Valley Tech
 * Lastly, I realized that medium to large scale software projects like DuckPond are very time consuming and in order to be completed within a couple of months, they should be performed by teams of developers and engineers. The same goes for any larger full-stack application. Perhaps such projects can be finished by a single person, but that process would take considerably more time than team work would require to deliver the product and finalize all the steps in the process
 
 ## How to Run the Project 
+1. Download and install VS Code editor [here](https://code.visualstudio.com/download)
+2. Use the terminal in VS Code (Bash, PowerShell, depending on the OS) to download and install Node.js, find instructions [here](https://nodejs.org/en/download/package-manager)
+3. Use VS Code 'Extensions' page to search for and install latest version of 'HTML CSS Support' dependency (CSS Intellisense for HTML)
+4. (optional) Use VS Code 'Extensions' page to search for and install latest version of 'JavaScript (ES6) code snippets'
+5. Use VS Code 'Extensions' page to search for and install latest version of 'ESLint' to integrate ESLint JavaScript into your code editor
+6. Follow instructions on [this](https://github.com/git-guides/install-git) link to install Git
+7. Choose the location (directory) for the project repository, navigate to it with 'cd [directory-name]' terminal command and inside of it clone the project repository by running the command 'git clone https://github.com/kristijanH1998/ddsm-back-end.git' in your terminal
+8. Run the command 'npm i' to install all required dependencies
+9. Install MongoDB (Community Edition version). Ensure default configuration and do not change the port (default port of the localhost server should be 27017). Get an instance of MongoDB server up and running. For more detailed instructions, reference official MongoDB installation manual on [this link](https://www.mongodb.com/docs/manual/administration/install-community/), and click on instructions corresponding with your operating system
+10. Install MongoDB Compass, the interactive GUI software for MongoDB. For more instructions please reference [this website](https://www.mongodb.com/docs/compass/current/install/). Then open MongoDB Compass
+11. Open embedded MongoDB Shell by clicking on _MONGOSH at the bottom of the MongoDB Compass window. Type 'use DuckPond' (this is a case sensitive command) in the shell, and then paste (in the shell) the script from [this file](mongodb-script.txt) to build the database for the project
+12. 
 
 ## How to Use the Project
 

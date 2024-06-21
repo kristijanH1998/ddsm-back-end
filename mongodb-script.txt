@@ -1,0 +1,210 @@
+db.createCollection("users", {
+    "capped": false,
+    "validator": {
+        "$jsonSchema": {
+            "bsonType": "object",
+            "title": "users",
+            "properties": {
+                "_id": {
+                    "bsonType": "objectId"
+                },
+                "user_id": {
+                    "bsonType": "objectId"
+                },
+                "username": {
+                    "bsonType": "string"
+                },
+                "email": {
+                    "bsonType": "string"
+                },
+                "authentication": {
+                    "bsonType": "object",
+                    "properties": {
+                        "password": {
+                            "bsonType": "string"
+                        },
+                        "salt": {
+                            "bsonType": "string"
+                        },
+                        "session_token": {
+                            "bsonType": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "password",
+                        "salt"
+                    ]
+                },
+                "user_info": {
+                    "bsonType": "object",
+                    "properties": {
+                        "country": {
+                            "bsonType": "string"
+                        },
+                        "first_name": {
+                            "bsonType": "string"
+                        },
+                        "last_name": {
+                            "bsonType": "string"
+                        },
+                        "date_of_birth": {
+                            "bsonType": "date"
+                        },
+                        "profile_picture": {
+                            "bsonType": "binData"
+                        },
+                        "datetime_created": {
+                            "bsonType": "date"
+                        },
+                        "biography": {
+                            "bsonType": "string"
+                        },
+                        "profile_is_archived": {
+                            "bsonType": "bool"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "first_name",
+                        "last_name",
+                        "datetime_created"
+                    ]
+                }
+            },
+            "additionalProperties": true,
+            "required": [
+                "username",
+                "email",
+                "authentication",
+                "user_info"
+            ]
+        }
+    },
+    "validationLevel": "strict",
+    "validationAction": "error"
+});
+
+
+
+
+db.createCollection("posts", {
+    "capped": false,
+    "validator": {
+        "$jsonSchema": {
+            "bsonType": "object",
+            "title": "posts",
+            "properties": {
+                "_id": {
+                    "bsonType": "objectId"
+                },
+                "post_id": {
+                    "bsonType": "objectId"
+                },
+                "post_owner_id": {
+                    "bsonType": "objectId"
+                },
+                "post_content": {
+                    "bsonType": "string"
+                },
+                "post_timestamp": {
+                    "bsonType": "date"
+                },
+                "post_like_count": {
+                    "bsonType": "number"
+                },
+                "post_is_archived": {
+                    "bsonType": "bool"
+                },
+                "post_comment_count": {
+                    "bsonType": "number"
+                }
+            },
+            "additionalProperties": true,
+            "required": [
+                "post_owner_id",
+                "post_content",
+                "post_timestamp",
+                "post_is_archived"
+            ]
+        }
+    },
+    "validationLevel": "strict",
+    "validationAction": "error"
+});
+
+
+
+
+db.createCollection("comments", {
+    "capped": false,
+    "validator": {
+        "$jsonSchema": {
+            "bsonType": "object",
+            "title": "comments",
+            "properties": {
+                "_id": {
+                    "bsonType": "objectId"
+                },
+                "comment_id": {
+                    "bsonType": "objectId"
+                },
+                "comment_owner_id": {
+                    "bsonType": "objectId"
+                },
+                "post_id": {
+                    "bsonType": "objectId"
+                },
+                "comment_content": {
+                    "bsonType": "string"
+                },
+                "comment_timestamp": {
+                    "bsonType": "date"
+                }
+            },
+            "additionalProperties": true,
+            "required": [
+                "comment_owner_id",
+                "post_id",
+                "comment_content",
+                "comment_timestamp"
+            ]
+        }
+    },
+    "validationLevel": "strict",
+    "validationAction": "error"
+});
+
+
+
+
+db.createCollection("likes", {
+    "capped": false,
+    "validator": {
+        "$jsonSchema": {
+            "bsonType": "object",
+            "title": "likes",
+            "properties": {
+                "_id": {
+                    "bsonType": "objectId"
+                },
+                "like_id": {
+                    "bsonType": "objectId"
+                },
+                "like_owner_id": {
+                    "bsonType": "objectId"
+                },
+                "post_id": {
+                    "bsonType": "objectId"
+                }
+            },
+            "additionalProperties": true,
+            "required": [
+                "like_owner_id",
+                "post_id"
+            ]
+        }
+    },
+    "validationLevel": "strict",
+    "validationAction": "error"
+});
