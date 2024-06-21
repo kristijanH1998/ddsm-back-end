@@ -61,7 +61,7 @@ DuckPond - internship group project for Bay Valley Tech
 9. Install MongoDB (Community Edition version). Ensure default configuration and do not change the port (default port of the localhost server should be 27017). Get an instance of MongoDB server up and running. For more detailed instructions, reference official MongoDB installation manual on [this link](https://www.mongodb.com/docs/manual/administration/install-community/), and click on instructions corresponding with your operating system
 10. Install MongoDB Compass, the interactive GUI software for MongoDB. For more instructions please reference [this website](https://www.mongodb.com/docs/compass/current/install/). Then open MongoDB Compass
 11. Open embedded MongoDB Shell by clicking on _MONGOSH at the bottom of the MongoDB Compass window. Type 'use DuckPond' (this is a case sensitive command) in the shell, and then paste (in the shell) the script from [this file](mongodb-script.txt) to build the database for the project
-12. 
+12. Type the command 'npm run dev' in a terminal at the root directory of the project's backend repository you cloned earlier, and ensure the console prints out “Server is running on…” and “Connected to MongoDB”
 
 ## How to Use the Project
 
