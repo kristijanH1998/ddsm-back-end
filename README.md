@@ -63,7 +63,7 @@ DuckPond - internship group project for Bay Valley Tech
 10. Install MongoDB Compass, the interactive GUI software for MongoDB. For more instructions please reference [this website](https://www.mongodb.com/docs/compass/current/install/). Then open MongoDB Compass
 11. Open embedded MongoDB Shell by clicking on _MONGOSH at the bottom of the MongoDB Compass window. Type 'use DuckPond' (this is a case sensitive command) in the shell, and then paste (in the shell) the script from [this file](mongodb-script.txt) to build the database for the project
 12. Type the command 'npm run dev' in the terminal at the root directory of the project's backend repository you cloned earlier, and ensure the console prints out “Server is running on port 8080” and “Connected to MongoDB” like this:
-![terminal after npm run dev](/screenshots/npm-run-dev.png?raw=true "terminal after 'npm run dev'")
+![terminal after npm run dev](/screenshots/npm-run-dev.png?raw=true "terminal after npm run dev")
 
 ### Frontend Installation 
 
