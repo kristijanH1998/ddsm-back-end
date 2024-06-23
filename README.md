@@ -67,5 +67,6 @@ DuckPond - internship group project for Bay Valley Tech
 13. Now go to the installation steps for the [Frontend repository](https://github.com/kristijanH1998/dev-duckies-sm-proj-front?tab=readme-ov-file#frontend-installation) of DuckPond, and install the environment for the Frontend, then run the frontend server to start using the application
 
 ## How to Use the Project
-
+* When 'http://localhost:5173/' URL address has been pasted to the address bar in the browser, you should see the Login page interface:
+![Login page](/screenshots/duckpond-login-1.png?raw=true "Login page")
 
