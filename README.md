@@ -6,7 +6,7 @@ DuckPond - internship group project for Bay Valley Tech
 - [How to Run the Project](#how-to-run-the-project)
 - [How to Use the Project](#how-to-use-the-project)
 - [Tests](#tests)
-- [Developer Log, Wireframe](#developer-log-wireframe)
+- [Developer Log, Flowcharts, Wireframe](#developer-log-flowcharts-wireframe)
 - [Credits](#credits)
 
 ## Description
@@ -109,8 +109,11 @@ To delete your account (warning: this will delete all data associated with your 
 * Due to problems with automating tests in both Insomnia and Postman, the team decided to make our own automated testing program in Python. This program, when run, activates all the endpoints on the server and sends requests for communication with the database for each of them. If all tests run successfully, it means the backend part of DuckPond is fully operational
 * The repository of our Python automated test tool can be found [here](https://github.com/kristijanH1998/ddsm-backend-testing-tool.git). Browse the README file for more information and screenshots of this subproject 
 
-## Developer Log, Wireframe
-* My developer log for this project was uploaded [here](https://drive.google.com/file/d/1bIH4XZXU69Ym8tr6hukK0defAdZk_hYE/view?usp=sharing)
+## Developer Log, Flowcharts, Wireframe, Screenshots
+* My developer log for this project has been uploaded [here](https://drive.google.com/file/d/1bIH4XZXU69Ym8tr6hukK0defAdZk_hYE/view?usp=sharing)
+* The flowcharts I made in Whimsical for Login and Register endpoints, deleting, updating, and getting data on user's Profile page or Feed page, account deletion, and other API methods can be seen on [this link](https://whimsical.com/api-fZfurRkTG76GxAbwypZCt)
+* The wireframe schematics I made in Figma for Login and Register pages is shown [here](https://www.figma.com/design/jj1JsWoJYqUOrp8FJDnOSf/Login%2FRegister-page-wireframes?node-id=0-1&t=qn4lK3Ey3o9NGknh-1). The wireframe for the Feed and Profile pages and Post modal are uploaded [here](https://www.figma.com/design/2mC4Kt2an5EqkLJgBYSSzh/Feed%2FProfile-Page-%26-Post-Modal-Wireframes?node-id=0-1&t=bvvqA0HnTnpx0N5X-1)
+* More screenshots taken from this project can be seen on my [portfolio website](https://kristijanh1998.github.io/duckpond.html)
 
 ## Credits
-
+* 
