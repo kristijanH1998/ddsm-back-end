@@ -110,7 +110,7 @@ To delete your account (warning: this will delete all data associated with your 
 * The repository of our Python automated test tool can be found [here](https://github.com/kristijanH1998/ddsm-backend-testing-tool.git). Browse the README file for more information and screenshots of this subproject 
 
 ## Developer Log, Wireframe
-* My developer log for this project was uploaded [here](developer-log.pdf)
+* My developer log for this project was uploaded [here](https://drive.google.com/file/d/1bIH4XZXU69Ym8tr6hukK0defAdZk_hYE/view?usp=sharing)
 
 ## Credits
 
