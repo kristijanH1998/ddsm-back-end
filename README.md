@@ -5,7 +5,9 @@ DuckPond - internship group project for Bay Valley Tech
 - [Description](#description)
 - [How to Run the Project](#how-to-run-the-project)
 - [How to Use the Project](#how-to-use-the-project)
+- [Tests](#tests)
 - [Developer Log, Wireframe](#developer-log-wireframe)
+- [Credits](#credits)
 
 ## Description
 #### Overview and Technologies used
@@ -67,7 +69,7 @@ DuckPond - internship group project for Bay Valley Tech
 13. Now go to the installation steps for the [Frontend repository](https://github.com/kristijanH1998/dev-duckies-sm-proj-front?tab=readme-ov-file#frontend-installation) of DuckPond, and install the environment for the Frontend, then run the frontend server to start using the application
 
 ## How to Use the Project
-* After the frontend server has been started and 'http://localhost:5173/' URL address has been pasted to the address bar in the browser, you should see the Login page interface:
+* After the frontend server has been started and 'http://localhost:5173/' URL address has been pasted in the address bar in the browser, you should see the Login page interface:
 ![Login page](/screenshots/duckpond-login-1.jpg?raw=true "Login page")
 Here enter your email address and password if your account exists, if not create a new account by clicking 'Create Account', which will open Register page:
 ![Register page](/screenshots/duckpond-signup-1.jpg?raw=true "Register page")
@@ -101,3 +103,14 @@ If there are more than five posts on your profile page, navigate over them by cl
 To sign out, click on the yellow 'Sign Out' button below.
 To delete your account (warning: this will delete all data associated with your profile, including posts, comments, likes, etc.), click the red 'Delete Account' button. You should see a warning message before proceeding with account removal:
 ![Delete Account](/screenshots/duckpond-settings-2.jpg?raw=true "Delete Account")
+
+## Tests
+* At the initial stages of development, we used Insomnia and Postman to test API endpoints for all HTTP methods (GET, POST, PUT, and DELETE) that are used for communication with the backend server
+* Due to problems with automating tests in both Insomnia and Postman, the team decided to make our own automated testing program in Python. This program, when run, activates all the endpoints on the server and sends requests for communication with the database for each of them. If all tests run successfully, it means the backend part of DuckPond is fully operational
+* The repository of our Python automated test tool can be found [here](https://github.com/kristijanH1998/ddsm-backend-testing-tool.git). Browse the README file for more information and screenshots of this subproject 
+
+## Developer Log, Wireframe
+* 
+
+## Credits
+
