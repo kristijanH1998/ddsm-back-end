@@ -6,7 +6,7 @@ DuckPond - internship group project for Bay Valley Tech
 - [How to Run the Project](#how-to-run-the-project)
 - [How to Use the Project](#how-to-use-the-project)
 - [Tests](#tests)
-- [Developer Log, Flowcharts, Wireframe](#developer-log-flowcharts-wireframe)
+- [Developer Log, Flowcharts, Wireframe, Screenshots](#developer-log-flowcharts-wireframe-screenshots)
 - [Credits](#credits)
 
 ## Description
