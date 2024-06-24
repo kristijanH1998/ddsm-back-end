@@ -116,7 +116,7 @@ To delete your account (warning: this will delete all data associated with your 
 * More screenshots taken from this project can be seen on my [portfolio website](https://kristijanh1998.github.io/duckpond.html)
 
 ## Credits
-* This project was sponsored and coordinated by Bay Valley Tech (BVT) Code Academy [official BVT website](https://www.bayvalleytech.com/)
+* This project was sponsored and coordinated by [Bay Valley Tech (BVT) Code Academy](https://www.bayvalleytech.com/)
 * Team members who contributed to the Backend part of DuckPond project: 
     1. Alex Yanez [GitHub](https://github.com/A13xYanez) [LinkedIn](https://www.linkedin.com/in/a13x-yanez/)
     2. Jeshua Cervantes [GitHub](https://github.com/JJeshua) [LinkedIn](https://www.linkedin.com/in/jeshua-cervantes/)
