@@ -18,6 +18,7 @@ DuckPond - internship group project for Bay Valley Tech
 * Every user has a Profile which they can update at any time with new personal information, such as a profile image, biography, country of residence, etc.
 * The main page of DuckPond is a Feed page that holds all the active posts from all users who are registered to the social network. Feed page provides all the typical social media features, from liking and commenting on other people's posts, to deleting or editing one's own posts (not those from other users however)
 * Furthermore, users can make new posts, search for other users on the network, change the app theme, sign out, and also delete their accounts if they so decide
+* The application authenticates users by means of cookies, using 'cookie-parser' library to parse and extract cookie data from HTTP requests
 * DuckPond is a responsive application, and its interface can be accessed from both a desktop machine and a mobile phone
 * Code for this project was written in JavaScript, HTML, and CSS languages
 * The technology stack utilized for this project was MERN (MongoDB, Express, React, and Node.js). This set of technologies was chosen because of its high scalability, ease of application management, great flexibility of Node.js, and feasibility of the MERN stack for developing medium-sized projects in a rapid fashion. MongoDB is a NoSQL database, and my team decided it would be best for this project due to its scalability, flexibility, cost-effectiveness, and intuitiveness of the way data is stored in a database
